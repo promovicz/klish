@@ -27,6 +27,8 @@ CLISH_PLUGIN_OSYM(clish_script)
 	clish_shell_t *this = clish_context__get_shell(clish_context);
 	const clish_action_t *action = clish_context__get_action(clish_context);
 	const char *shebang = NULL;
+	const char *pager_command = NULL;
+	bool_t use_pager = BOOL_FALSE;
 	pid_t cpid = -1;
 	int res;
 	char fifo_name[PATH_MAX];
@@ -36,6 +38,18 @@ CLISH_PLUGIN_OSYM(clish_script)
 	assert(this);
 	if (!script) /* Nothing to do */
 		return 0;
+
+	/* Check if we want to enable the pager */
+	pager_command = clish_shell__get_pager_command(this);
+	if(pager_command) {
+	  use_pager = clish_context__get_pager(clish_context);
+	}
+	/* Do not enable pager for interactive commands */
+	if(clish_action__get_interactive(action)) {
+		use_pager = BOOL_FALSE;
+	}
+	/* Be safe and check what we figured out */
+	assert(pager_command || !use_pager);
 
 	/* Find out shebang */
 	if (action)
@@ -80,6 +94,15 @@ CLISH_PLUGIN_OSYM(clish_script)
 	lub_string_cat(&command, shebang);
 	lub_string_cat(&command, " ");
 	lub_string_cat(&command, fifo_name);
+	if (use_pager) {
+		lub_string_cat(&command, " | ( exec ");
+		lub_string_cat(&command, pager_command);
+		lub_string_cat(&command, " )");
+	}
+
+#ifdef DEBUG
+	fprintf(stderr, "COMMAND:\n%s\n", command);
+#endif /* DEBUG */
 
 	res = system(command);
 

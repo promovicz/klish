@@ -23,6 +23,7 @@ static void clish_action_init(clish_action_t *this)
 	this->interrupt = BOOL_FALSE;
 	this->permanent = BOOL_FALSE;
 	this->expand = TRI_UNDEFINED;
+	this->pager = TRI_UNDEFINED;
 }
 
 /*--------------------------------------------------------- */
@@ -64,6 +65,8 @@ CLISH_SET(action, bool_t, permanent);
 CLISH_GET(action, bool_t, permanent);
 CLISH_SET(action, tri_t, expand);
 CLISH_GET(action, tri_t, expand);
+CLISH_SET(action, tri_t, pager);
+CLISH_GET(action, tri_t, pager);
 
 _CLISH_SET_STR(action, shebang)
 {

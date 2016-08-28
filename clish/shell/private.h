@@ -74,6 +74,7 @@ struct clish_shell_s {
 	char *lockfile;
 	char *default_shebang;
 	bool_t default_expand;
+	bool_t default_pager;
 	char *fifo_temp; /* The template of temporary FIFO file name */
 	struct passwd *user; /* Current user information */
 

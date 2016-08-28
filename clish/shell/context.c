@@ -124,3 +124,19 @@ bool_t clish_context__get_expand(const clish_context_t *context)
 }
 
 /*--------------------------------------------------------- */
+bool_t clish_context__get_pager(const clish_context_t *context)
+{
+	bool_t res;
+	const clish_shell_t *shell = clish_context__get_shell(context);
+	const clish_action_t *action = clish_context__get_action(context);
+
+	/* get global default */
+	res = clish_shell__get_default_pager(shell);
+	/* allow action to override */
+	res = lub_tri_default(clish_action__get_pager(action), res);
+
+	/* return result */
+	return res;
+}
+
+/*--------------------------------------------------------- */

@@ -18,7 +18,6 @@ bool_t clish_shell_is_machine_interface(const clish_shell_t *shell)
 	return shell->machine_interface;
 }
 
-
 void clish_shell_set_machine_interface(clish_shell_t *shell)
 {
 	assert(shell);
@@ -41,3 +40,9 @@ void clish_shell_set_human_interface(clish_shell_t *shell)
 	if (shell->tinyrl)
 		tinyrl_set_human_interface(shell->tinyrl);
 }
+
+const char *clish_shell__get_pager_command(clish_shell_t * instance)
+{
+	return getenv("CLISH_PAGER");
+}
+

@@ -55,6 +55,7 @@ clish_pargv_t *clish_context__get_pargv(const void *instance);
 void clish_context__set_action(void *instance, const clish_action_t *action);
 const clish_action_t *clish_context__get_action(const void *instance);
 bool_t clish_context__get_expand(const clish_context_t *context);
+bool_t clish_context__get_pager(const clish_context_t *context);
 _END_C_DECL
 
 /* Shell */
@@ -139,6 +140,8 @@ _CLISH_SET_STR(shell, default_shebang);
 _CLISH_GET_STR(shell, default_shebang);
 _CLISH_SET(shell, bool_t, default_expand);
 _CLISH_GET(shell, bool_t, default_expand);
+_CLISH_SET(shell, bool_t, default_pager);
+_CLISH_GET(shell, bool_t, default_pager);
 _CLISH_SET(shell, unsigned int, idle_timeout);
 _CLISH_SET(shell, unsigned int, wdog_timeout);
 _CLISH_GET(shell, unsigned int, wdog_timeout);
@@ -179,6 +182,7 @@ clish_view_t *clish_shell__get_pwd_view(const clish_shell_t * instance,
 FILE *clish_shell__get_istream(const clish_shell_t * instance);
 FILE *clish_shell__get_ostream(const clish_shell_t * instance);
 int clish_shell__set_socket(clish_shell_t * instance, const char * path);
+const char *clish_shell__get_pager_command(clish_shell_t * instance);
 int clish_shell_load_scheme(clish_shell_t * instance, const char * xml_path, const char *xslt_path);
 int clish_shell_loop(clish_shell_t * instance);
 void clish_shell__set_startup_view(clish_shell_t * instance, const char * viewname);

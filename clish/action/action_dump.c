@@ -22,6 +22,7 @@ void clish_action_dump(const clish_action_t *this)
 	lub_dump_printf("interactive : %s\n", LUB_DUMP_BOOL(this->interactive));
 	lub_dump_printf("permanent   : %s\n", LUB_DUMP_BOOL(this->permanent));
 	lub_dump_printf("expand      : %s\n", LUB_DUMP_TRI(this->expand));
+	lub_dump_printf("pager       : %s\n", LUB_DUMP_TRI(this->pager));
 
 	lub_dump_undent();
 }

@@ -471,3 +471,5 @@ CLISH_SET(shell, bool_t, dryrun);
 CLISH_GET(shell, bool_t, dryrun);
 CLISH_SET(shell, bool_t, canon_out);
 CLISH_GET(shell, bool_t, canon_out);
+CLISH_SET(shell, bool_t, default_pager);
+CLISH_GET(shell, bool_t, default_pager);
