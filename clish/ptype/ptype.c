@@ -154,6 +154,12 @@ static void clish_ptype__set_range(clish_ptype_t * this)
 {
 	char tmp[80];
 
+	/* Clear the range */
+	if (this->range) {
+		lub_string_free(this->range);
+		this->range = NULL;
+	}
+
 	/* Now set up the range values */
 	switch (this->method) {
 	/*------------------------------------------------- */
