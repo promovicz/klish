@@ -27,5 +27,6 @@ struct clish_command_s {
 	clish_view_t *pview;
 	bool_t lock;
 	bool_t interrupt;
+	bool_t pager;
 	bool_t dynamic; /* Is command dynamically created */
 };

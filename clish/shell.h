@@ -174,6 +174,9 @@ void clish_shell__set_startup_view(clish_shell_t * instance, const char * viewna
 void clish_shell__set_startup_viewid(clish_shell_t * instance, const char * viewid);
 void clish_shell__set_default_shebang(clish_shell_t * instance, const char * shebang);
 const char * clish_shell__get_default_shebang(const clish_shell_t * instance);
+const char * clish_shell__get_pager_command(clish_shell_t * instance);
+void clish_shell__set_pager(clish_shell_t * instance, bool_t pager);
+bool_t clish_shell__get_pager(const clish_shell_t * instance);
 void clish_shell__set_interactive(clish_shell_t * instance, bool_t interactive);
 bool_t clish_shell__get_interactive(const clish_shell_t * instance);
 bool_t clish_shell__get_utf8(const clish_shell_t * instance);

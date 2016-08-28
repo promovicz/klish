@@ -87,6 +87,8 @@ void clish_command__set_dynamic(clish_command_t * instance, bool_t dynamic);
 bool_t clish_command__get_dynamic(const clish_command_t * instance);
 bool_t clish_command__get_interrupt(const clish_command_t * instance);
 void clish_command__set_interrupt(clish_command_t * instance, bool_t interrupt);
+bool_t clish_command__get_pager(const clish_command_t * instance);
+void clish_command__set_pager(clish_command_t * instance, bool_t pager);
 void clish_command__set_access(clish_command_t *instance, const char *access);
 char *clish_command__get_access(const clish_command_t *instance);
 

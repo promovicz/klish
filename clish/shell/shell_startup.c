@@ -79,6 +79,18 @@ const char * clish_shell__get_default_shebang(const clish_shell_t *this)
 	return this->default_shebang;
 }
 
+/*----------------------------------------------------------- */
+void clish_shell__set_pager(clish_shell_t *this, bool_t pager)
+{
+	this->pager = pager;
+}
+
+/*----------------------------------------------------------- */
+bool_t clish_shell__get_pager(const clish_shell_t *this)
+{
+	return this->pager;
+}
+
 
 
 /*-------------------------------------------------------- */

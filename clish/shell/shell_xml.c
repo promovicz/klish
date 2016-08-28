@@ -470,6 +470,7 @@ static int process_command(clish_shell_t *shell, clish_xmlnode_t *element,
 	char *args_help = clish_xmlnode_fetch_attr(element, "args_help");
 	char *lock = clish_xmlnode_fetch_attr(element, "lock");
 	char *interrupt = clish_xmlnode_fetch_attr(element, "interrupt");
+	char *pager = clish_xmlnode_fetch_attr(element, "pager");
 	char *ref = clish_xmlnode_fetch_attr(element, "ref");
 
 	/* Check syntax */
@@ -552,6 +553,12 @@ static int process_command(clish_shell_t *shell, clish_xmlnode_t *element,
 	else
 		clish_command__set_interrupt(cmd, BOOL_FALSE);
 
+	/* pager field */
+	if (pager && lub_string_nocasecmp(pager, "false") == 0)
+		clish_command__set_pager(cmd, BOOL_FALSE);
+	else
+		clish_command__set_pager(cmd, BOOL_TRUE);
+
 	if (access)
 		clish_command__set_access(cmd, access);
 
@@ -568,6 +575,7 @@ error:
 	clish_xml_release(args_help);
 	clish_xml_release(lock);
 	clish_xml_release(interrupt);
+	clish_xml_release(pager);
 	clish_xml_release(ref);
 
 	return res;
@@ -585,6 +593,8 @@ static int process_startup(clish_shell_t *shell, clish_xmlnode_t *element,
 	char *viewid = clish_xmlnode_fetch_attr(element, "viewid");
 	char *default_shebang =
 		clish_xmlnode_fetch_attr(element, "default_shebang");
+	char *pager =
+		clish_xmlnode_fetch_attr(element, "pager");
 	char *timeout = clish_xmlnode_fetch_attr(element, "timeout");
 	char *lock = clish_xmlnode_fetch_attr(element, "lock");
 	char *interrupt = clish_xmlnode_fetch_attr(element, "interrupt");
@@ -620,6 +630,12 @@ static int process_startup(clish_shell_t *shell, clish_xmlnode_t *element,
 		lub_conv_atoui(timeout, &to, 0);
 		clish_shell__set_timeout(shell, to);
 	}
+
+	/* pager field */
+	if (pager && lub_string_nocasecmp(pager, "true") == 0)
+		clish_shell__set_pager(shell, BOOL_TRUE);
+	else
+		clish_shell__set_pager(shell, BOOL_FALSE);
 
 	/* lock field */
 	if (lock && lub_string_nocasecmp(lock, "false") == 0)
