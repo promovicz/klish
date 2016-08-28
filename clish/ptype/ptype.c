@@ -390,6 +390,9 @@ static void clish_ptype_init(clish_ptype_t * this,
 	this->preprocess = preprocess;
 	this->range = NULL;
 
+	/* Clear the method-specific union */
+	memset(&this->u, 0, sizeof(this->u));
+
 	/* Be a good binary tree citizen */
 	lub_bintree_node_init(&this->bt_node);
 
@@ -450,6 +453,8 @@ static void clish_ptype_delete_pattern(clish_ptype_t * this)
 		lub_string_free(this->pattern);
 		this->pattern = NULL;
 	}
+	/* clear the method-specific union */
+	memset(&this->u, 0, sizeof(this->u));
 }
 
 /*--------------------------------------------------------- */
