@@ -622,9 +622,11 @@ static int process_startup(clish_shell_t *shell, clish_xmlnode_t *element,
 	if (viewid)
 		clish_command__set_viewid(cmd, viewid);
 
+	/* default_shebang field */
 	if (default_shebang)
 		clish_shell__set_default_shebang(shell, default_shebang);
 
+	/* timeout field */
 	if (timeout) {
 		unsigned int to = 0;
 		lub_conv_atoui(timeout, &to, 0);

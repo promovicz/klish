@@ -260,6 +260,7 @@ static int clish_shell_exec_oaction(clish_hook_oaction_fn_t func,
 	close(pipe1[1]);
 	close(pipe2[1]);
 
+	/* Call the handler function */
 	result = func(context, script);
 
 	/* Restore real stdout */
@@ -327,7 +328,7 @@ int clish_shell_exec_action(clish_context_t *context, char **out, bool_t intr)
 		sigprocmask(SIG_BLOCK, &sigs, &old_sigs);
 	}
 
-	/* Find out the function API */
+	/* Find out the function API and call the function */
 	/* CLISH_SYM_API_SIMPLE */
 	if (clish_sym__get_api(sym) == CLISH_SYM_API_SIMPLE) {
 		result = ((clish_hook_action_fn_t *)func)(context, script, out);

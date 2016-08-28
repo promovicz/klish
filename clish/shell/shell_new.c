@@ -71,7 +71,7 @@ static void clish_shell_init(clish_shell_t * this,
 	this->client = NULL;
 	this->lockfile = lub_string_dup(CLISH_LOCK_PATH);
 	this->default_shebang = lub_string_dup("/bin/sh");
-	this->interactive = BOOL_TRUE; /* The interactive shell by default. */
+	this->interactive = BOOL_TRUE; /* The interactive shell by default */
 	this->pager = BOOL_FALSE; /* Disable pager by default */
 	this->log = BOOL_FALSE; /* Disable logging by default */
 	this->log_facility = LOG_LOCAL0; /* LOCAL0 for compatibility */
