@@ -141,7 +141,7 @@ static int iterate_paramv(clish_shell_t *this, clish_paramv_t *paramv,
 			fprintf(stderr, "Warning: Access denied. Remove PARAM \"%s\"\n",
 				clish_param__get_name(param));
 #endif
-			if (clish_paramv_remove(paramv, i) < 0) {
+			if (clish_paramv_remove_at(paramv, i) < 0) {
 				fprintf(stderr, "Error: Some system problem\n");
 				return -1;
 			}

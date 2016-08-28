@@ -313,7 +313,24 @@ void clish_paramv_insert(clish_paramv_t * this, clish_param_t * param)
 }
 
 /*--------------------------------------------------------- */
-int clish_paramv_remove(clish_paramv_t *this, unsigned int index)
+int clish_paramv_remove(clish_paramv_t * this, clish_param_t * param)
+{
+	int i = 0;
+	clish_param_t *p;
+	/* iterate params */
+	while((p = clish_paramv__get_param(this, i))) {
+		if (p == param) {
+			/* found it - remove and return */
+			return clish_paramv_remove_at(this, i);
+		}
+		i++;
+	}
+	/* not found - return error */
+	return -1;
+}
+
+/*--------------------------------------------------------- */
+int clish_paramv_remove_at(clish_paramv_t *this, unsigned int index)
 {
 	size_t new_size;
 	clish_param_t **tmp;
