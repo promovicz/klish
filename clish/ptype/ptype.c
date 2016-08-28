@@ -471,6 +471,46 @@ const char *clish_ptype__get_text(const clish_ptype_t * this)
 }
 
 /*--------------------------------------------------------- */
+void clish_ptype__set_text(clish_ptype_t * this, const char *text)
+{
+	if (this->text)
+		lub_string_free(this->text);
+	this->text = lub_string_dup(text);
+}
+
+/*--------------------------------------------------------- */
+const char *clish_ptype__get_pattern(const clish_ptype_t * this)
+{
+	return (const char *)this->pattern;
+}
+
+/*--------------------------------------------------------- */
+const char *clish_ptype__get_range(const clish_ptype_t * this)
+{
+	return (const char *)this->range;
+}
+
+/*--------------------------------------------------------- */
+clish_ptype_method_e clish_ptype__get_method(const clish_ptype_t * this)
+{
+	return this->method;
+}
+
+/*--------------------------------------------------------- */
+clish_ptype_preprocess_e clish_ptype__get_preprocess(const clish_ptype_t * this)
+{
+	return this->preprocess;
+}
+
+/*--------------------------------------------------------- */
+void
+clish_ptype__set_preprocess(clish_ptype_t * this,
+	clish_ptype_preprocess_e preprocess)
+{
+	this->preprocess = preprocess;
+}
+
+/*--------------------------------------------------------- */
 void
 clish_ptype__set_pattern(clish_ptype_t * this,
 			 const char *pattern, clish_ptype_method_e method)
@@ -526,29 +566,6 @@ clish_ptype__set_pattern(clish_ptype_t * this,
 	}
 	/* now set up the range details */
 	clish_ptype__set_range(this);
-}
-
-/*--------------------------------------------------------- */
-void clish_ptype__set_text(clish_ptype_t * this, const char *text)
-{
-	assert(!this->text);
-	this->text = lub_string_dup(text);
-
-}
-
-/*--------------------------------------------------------- */
-void
-clish_ptype__set_preprocess(clish_ptype_t * this,
-	clish_ptype_preprocess_e preprocess)
-{
-	assert(!this->preprocess);
-	this->preprocess = preprocess;
-}
-
-/*--------------------------------------------------------- */
-const char *clish_ptype__get_range(const clish_ptype_t * this)
-{
-	return (const char *)this->range;
 }
 
 /*--------------------------------------------------------- */

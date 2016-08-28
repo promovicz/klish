@@ -122,11 +122,14 @@ void clish_ptype_dump(clish_ptype_t * instance);
  *----------------- */
 const char *clish_ptype__get_name(const clish_ptype_t * instance);
 const char *clish_ptype__get_text(const clish_ptype_t * instance);
+void clish_ptype__set_text(clish_ptype_t * instance, const char *text);
+const char *clish_ptype__get_pattern(const clish_ptype_t * instance);
 const char *clish_ptype__get_range(const clish_ptype_t * instance);
-void clish_ptype__set_preprocess(clish_ptype_t * instance,
-	clish_ptype_preprocess_e preprocess);
+clish_ptype_method_e clish_ptype__get_method(const clish_ptype_t * instance);
 void clish_ptype__set_pattern(clish_ptype_t * instance,
 	const char *pattern, clish_ptype_method_e method);
-void clish_ptype__set_text(clish_ptype_t * instance, const char *text);
+clish_ptype_preprocess_e clish_ptype__get_preprocess(const clish_ptype_t * instance);
+void clish_ptype__set_preprocess(clish_ptype_t * instance,
+	clish_ptype_preprocess_e preprocess);
 #endif	/* _clish_ptype_h */
 /** @} clish_ptype */
