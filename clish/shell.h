@@ -107,6 +107,8 @@ clish_ptype_t *clish_shell_find_create_ptype(clish_shell_t * instance,
 	const char *pattern,
 	clish_ptype_method_e method,
 	clish_ptype_preprocess_e preprocess);
+clish_view_t *clish_shell_find_view(clish_shell_t * instance,
+	const char *name);
 clish_ptype_t *clish_shell_find_ptype(clish_shell_t *instance,
 	const char *name);
 void clish_shell_help(clish_shell_t * instance, const char *line);
