@@ -81,6 +81,12 @@ void clish_param_insert_param(clish_param_t * this, clish_param_t * param)
 	return clish_paramv_insert(this->paramv, param);
 }
 
+/*--------------------------------------------------------- */
+int clish_param_remove_param(clish_param_t * this, clish_param_t * param)
+{
+	return clish_paramv_remove(this->paramv, param);
+}
+
 /*---------------------------------------------------------
  * PUBLIC ATTRIBUTES
  *--------------------------------------------------------- */

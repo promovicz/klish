@@ -172,6 +172,12 @@ void clish_command_insert_param(clish_command_t * this, clish_param_t * param)
 }
 
 /*--------------------------------------------------------- */
+void clish_command_remove_param(clish_command_t * this, clish_param_t * param)
+{
+	clish_paramv_remove(this->paramv, param);
+}
+
+/*--------------------------------------------------------- */
 int clish_command_help(const clish_command_t *this)
 {
 	this = this; /* Happy compiler */

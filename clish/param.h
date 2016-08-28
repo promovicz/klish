@@ -60,6 +60,7 @@ void clish_param_help_arrow(const clish_param_t * instance, size_t offset);
 char *clish_param_validate(const clish_param_t * instance, const char *text);
 void clish_param_dump(const clish_param_t * instance);
 void clish_param_insert_param(clish_param_t * instance, clish_param_t * param);
+int clish_param_remove_param(clish_param_t * instance, clish_param_t * param);
 /*-----------------
  * attributes
  *----------------- */
