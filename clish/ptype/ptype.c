@@ -431,9 +431,10 @@ clish_ptype_t *clish_ptype_new(const char *name,
 }
 
 /*--------------------------------------------------------- */
-static void clish_ptype_fini(clish_ptype_t * this)
+static void clish_ptype_delete_pattern(clish_ptype_t * this)
 {
 	if (this->pattern) {
+		/* free method-specific data */
 		switch (this->method) {
 		case CLISH_PTYPE_REGEXP:
 			regfree(&this->u.regexp);
@@ -445,14 +446,21 @@ static void clish_ptype_fini(clish_ptype_t * this)
 			lub_argv_delete(this->u.select.items);
 			break;
 		}
+		/* free the pattern string */
+		lub_string_free(this->pattern);
+		this->pattern = NULL;
 	}
+}
+
+/*--------------------------------------------------------- */
+static void clish_ptype_fini(clish_ptype_t * this)
+{
+	clish_ptype_delete_pattern(this);
 
 	lub_string_free(this->name);
 	this->name = NULL;
 	lub_string_free(this->text);
 	this->text = NULL;
-	lub_string_free(this->pattern);
-	this->pattern = NULL;
 	lub_string_free(this->range);
 	this->range = NULL;
 }
@@ -521,7 +529,8 @@ void
 clish_ptype__set_pattern(clish_ptype_t * this,
 			 const char *pattern, clish_ptype_method_e method)
 {
-	assert(NULL == this->pattern);
+	clish_ptype_delete_pattern(this);
+
 	this->method = method;
 
 	switch (this->method) {
