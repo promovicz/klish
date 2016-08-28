@@ -72,7 +72,7 @@ void clish_param_delete(clish_param_t * this)
 /*--------------------------------------------------------- */
 void clish_param_insert_param(clish_param_t * this, clish_param_t * param)
 {
-	return clish_paramv_insert(this->paramv, param);
+	clish_paramv_insert(this->paramv, param);
 }
 
 /*--------------------------------------------------------- */
