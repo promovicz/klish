@@ -948,11 +948,11 @@ static int process_namespace(clish_shell_t *shell, clish_xmlnode_t *element,
 		clish_nspace__set_prefix(nspace, prefix);
 		if (prefix_help)
 			clish_nspace_create_prefix_cmd(nspace,
-				"prefix",
+				prefix,
 				prefix_help);
 		else
 			clish_nspace_create_prefix_cmd(nspace,
-				"prefix",
+				prefix,
 				"Prefix for the imported commands.");
 	}
 
