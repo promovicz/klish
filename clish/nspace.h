@@ -52,6 +52,8 @@ void clish_nspace_clean_proxy(clish_nspace_t * instance);
  *----------------- */
 void clish_nspace__set_view(clish_nspace_t *instance, clish_view_t *view);
 clish_view_t *clish_nspace__get_view(const clish_nspace_t * instance);
+void clish_nspace__set_pview(clish_nspace_t * instance, clish_view_t *pview);
+clish_view_t *clish_nspace__get_pview(const clish_nspace_t * instance);
 void clish_nspace__set_view_name(clish_nspace_t *instance, const char *view_name);
 const char * clish_nspace__get_view_name(const clish_nspace_t *instance);
 const char *clish_nspace__get_prefix(const clish_nspace_t * instance);

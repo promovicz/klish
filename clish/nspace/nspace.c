@@ -24,6 +24,7 @@ static void clish_nspace_init(clish_nspace_t *this,  const char *view_name)
 
 	/* Set up defaults */
 	this->view = NULL;
+	this->pview = NULL;
 	this->prefix = NULL;
 	this->help = BOOL_FALSE;
 	this->completion = BOOL_TRUE;
@@ -292,6 +293,18 @@ clish_view_t *clish_nspace__get_view(const clish_nspace_t *this)
 void clish_nspace__set_view(clish_nspace_t *this, clish_view_t *view)
 {
 	this->view = view;
+}
+
+/*--------------------------------------------------------- */
+clish_view_t *clish_nspace__get_pview(const clish_nspace_t *this)
+{
+	return this->pview;
+}
+
+/*--------------------------------------------------------- */
+void clish_nspace__set_pview(clish_nspace_t *this, clish_view_t *view)
+{
+	this->pview = view;
 }
 
 /*--------------------------------------------------------- */
