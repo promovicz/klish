@@ -62,5 +62,10 @@ _CLISH_GET(view, clish_view_restore_e, restore);
 
 lub_bintree_t * clish_view__get_tree(clish_view_t *instance);
 
+const char *clish_view_restore__get_name(clish_view_restore_e
+	restore);
+clish_view_restore_e clish_view_restore_resolve(const char
+	*restore_name);
+
 #endif				/* _clish_view_h */
 /** @} clish_view */
