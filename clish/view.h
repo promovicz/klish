@@ -80,6 +80,7 @@ int clish_view_insert_hotkey(const clish_view_t *instance, const char *key, cons
 const char *clish_view_find_hotkey(const clish_view_t *instance, int code);
 void clish_view__set_access(clish_view_t *instance, const char *access);
 char *clish_view__get_access(const clish_view_t *instance);
+clish_action_t *clish_view__get_action(const clish_view_t * instance);
 
 #endif				/* _clish_view_h */
 /** @} clish_view */

@@ -859,6 +859,8 @@ static int process_action(clish_shell_t *shell, clish_xmlnode_t *element,
 
 	if (pname && lub_string_nocasecmp(pname, "VAR") == 0)
 		action = clish_var__get_action((clish_var_t *)parent);
+	else if (pname && lub_string_nocasecmp(pname, "VIEW") == 0)
+		action = clish_view__get_action((clish_view_t *)parent);
 	else
 		action = clish_command__get_action((clish_command_t *)parent);
 

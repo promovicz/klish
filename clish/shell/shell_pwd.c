@@ -93,6 +93,10 @@ void clish_shell__set_pwd(clish_shell_t *this,
 	free(this->pwdv[index]);
 	this->pwdv[index] = newpwd;
 	this->depth = index;
+
+	/* Execute the view action */
+	clish_context__set_action(context, clish_view__get_action(view));
+	clish_shell_exec_action(context, NULL, BOOL_FALSE);
 }
 
 /*--------------------------------------------------------- */

@@ -54,6 +54,9 @@ static void clish_view_init(clish_view_t * this, const char *name, const char *p
 		clish_command_bt_offset(),
 		clish_command_bt_compare, clish_command_bt_getkey);
 
+	/* create an empty action */
+	this->action = clish_action_new();
+
 	/* Initialise the list of namespaces.
 	 * It's important to add new items to the
 	 * tail of list.
@@ -92,6 +95,9 @@ static void clish_view_fini(clish_view_t * this)
 		clish_nspace_delete(nspace);
 	}
 	lub_list_free(this->nspaces);
+
+	/* free the action */
+	clish_action_delete(this->action);
 
 	/* Free hotkey structures */
 	clish_hotkeyv_delete(this->hotkeys);
@@ -450,6 +456,12 @@ void clish_view__set_access(clish_view_t *this, const char *access)
 char *clish_view__get_access(const clish_view_t *this)
 {
 	return this->access;
+}
+
+/*--------------------------------------------------------- */
+clish_action_t *clish_view__get_action(const clish_view_t *this)
+{
+	return this->action;
 }
 
 /*--------------------------------------------------------- */

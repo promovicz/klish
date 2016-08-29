@@ -15,6 +15,7 @@ struct clish_view_s {
 	char *name;
 	char *prompt;
 	char *access;
+	clish_action_t *action;
 	lub_list_t *nspaces;
 	clish_hotkeyv_t *hotkeys;
 	unsigned int depth;
