@@ -39,6 +39,10 @@ clish_view_t *clish_view_new(const char *name, const char *prompt);
 int clish_view_bt_compare(const void *clientnode, const void *clientkey);
 void clish_view_bt_getkey(const void *clientnode, lub_bintree_key_t * key);
 size_t clish_view_bt_offset(void);
+const char *clish_view_restore__get_name(clish_view_restore_e
+	restore);
+clish_view_restore_e clish_view_restore_resolve(const char
+	*restore_name);
 
 /*-----------------
  * methods
