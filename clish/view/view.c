@@ -187,6 +187,22 @@ clish_command_t *clish_view_new_command(clish_view_t * this,
 }
 
 /*--------------------------------------------------------- */
+clish_command_t *clish_view_new_command_link(clish_view_t * this,
+	const char *name, const char *help, const clish_command_t *ref)
+{
+	/* allocate the memory for a new parameter definition */
+	clish_command_t *cmd = clish_command_new_link(name, help, ref);
+	assert(cmd);
+
+	/* if this is a command other than the startup command... */
+	if (NULL != help) {
+		/* ...then insert it */
+		clish_view_insert_command(this, cmd);
+	}
+	return cmd;
+}
+
+/*--------------------------------------------------------- */
 void clish_view_insert_command(clish_view_t * this,
 	const clish_command_t *cmd)
 {
