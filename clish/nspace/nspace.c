@@ -58,7 +58,8 @@ static void clish_nspace_fini(clish_nspace_t *this)
 	}
 	/* Delete prefix pseudo-command */
 	if (this->prefix_cmd) {
-		clish_command_delete(this->prefix_cmd);
+		/* XXX delete already performed by owning view */
+		/*clish_command_delete(this->prefix_cmd);*/
 		this->prefix_cmd = NULL;
 	}
 	lub_string_free(this->access);
