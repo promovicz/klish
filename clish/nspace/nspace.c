@@ -69,12 +69,19 @@ static void clish_nspace_fini(clish_nspace_t *this)
 clish_command_t * clish_nspace_create_prefix_cmd(clish_nspace_t * this,
 	const char * name, const char * help)
 {
+	clish_command_t *res;
 	if (this->prefix_cmd) {
 		clish_command_delete(this->prefix_cmd);
 		this->prefix_cmd = NULL;
 	}
 
-	return (this->prefix_cmd = clish_command_new(name, help));
+	res = clish_command_new(name, help);
+
+	clish_view_insert_command(this->pview, res);
+
+	this->prefix_cmd = res;
+
+	return res;
 }
 
 /*--------------------------------------------------------- */
