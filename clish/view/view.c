@@ -201,6 +201,16 @@ void clish_view_insert_command(clish_view_t * this,
 }
 
 /*--------------------------------------------------------- */
+int clish_view_remove_command(clish_view_t * this,
+	const clish_command_t *cmd)
+{
+	/* remove the command from the tree */
+	lub_bintree_remove(&this->tree, cmd);
+	/* and delete it */
+	clish_command_delete(cmd);
+}
+
+/*--------------------------------------------------------- */
 /* This method identifies the command (if any) which provides
  * the longest match with the specified line of text.
  *
