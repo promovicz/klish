@@ -1,0 +1,49 @@
+if PYTHON_USE
+
+lib_LTLIBRARIES += clish_plugin_python.la
+
+clish_plugin_python_la_SOURCES =
+
+clish_plugin_python_la_LDFLAGS = -avoid-version -module @PYTHON_LSPEC@
+if HAVE_LD_VERSION_SCRIPT
+clish_plugin_python_la_LDFLAGS += -Wl,--version-script=plugins/python/version.map
+else
+clish_plugin_python_la_LDFLAGS += -export-symbols plugins/python/symbols.map
+endif
+
+clish_plugin_python_la_CPPFLAGS = $(AM_CPPFLAGS) @PYTHON_CSPEC@
+
+clish_plugin_python_la_LIBADD = \
+	liblub.la \
+	libclish.la \
+	libkonf.la
+
+clish_plugin_python_la_DEPENDENCIES = \
+	liblub.la \
+	libclish.la \
+	libkonf.la
+
+clish_plugin_python_la_SOURCES += \
+	plugins/python/plugin_init.c \
+	plugins/python/plugin_fini.c \
+	plugins/python/plugin_action.c \
+	plugins/python/python_fini.c \
+	plugins/python/python_init.c \
+	plugins/python/clish_shell.c \
+	plugins/python/clish_action.c \
+	plugins/python/clish_context.c \
+	plugins/python/clish_command.c \
+	plugins/python/clish_param.c \
+	plugins/python/clish_paramv.c \
+	plugins/python/clish_pargv.c \
+	plugins/python/clish_ptype.c \
+	plugins/python/clish_sym.c \
+	plugins/python/clish_var.c \
+	plugins/python/clish_view.c \
+	plugins/python/private.h
+
+EXTRA_DIST += \
+	plugins/python/symbols.map \
+	plugins/python/version.map
+
+endif # PYTHON_USE

@@ -2,7 +2,9 @@
 
 EXTRA_DIST += \
 	plugins/lua/module.am \
-	plugins/clish/module.am
+	plugins/clish/module.am \
+	plugins/python/module.am
 
 include $(top_srcdir)/plugins/clish/module.am
 include $(top_srcdir)/plugins/lua/module.am
+include $(top_srcdir)/plugins/python/module.am

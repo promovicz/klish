@@ -98,6 +98,27 @@ if test x$use_lua != xno; then
 fi
 
 ################################
+# Check for Python support
+################################
+
+AX_PYTHON_DEVEL( )
+AX_PYTHON
+AX_PYTHON_DEFAULT( )
+AX_PYTHON_ENABLE( )
+AX_PYTHON_WITH( )
+AX_PYTHON_PATH( )
+# if $PYTHON is not defined, then the following do nothing.
+AX_PYTHON_VERSION_ENSURE( [2.7] )
+AX_PYTHON_CSPEC
+AX_PYTHON_LSPEC
+
+if test x$PYTHON_USE != xfalse; then
+    AC_DEFINE_UNQUOTED([PYTHON_LIB],
+                       ["$PYTHON_LIB"],
+                       [Name of python library])
+fi
+
+################################
 # Check for the roxml library
 ################################
 AC_ARG_WITH(libroxml,
