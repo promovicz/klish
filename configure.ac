@@ -101,6 +101,8 @@ fi
 # Check for Python support
 ################################
 
+sinclude(autoconf/ax_python.m4)
+sinclude(autoconf/ax_python_devel.m4)
 AX_PYTHON_DEVEL( )
 AX_PYTHON
 AX_PYTHON_DEFAULT( )
