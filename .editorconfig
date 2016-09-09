@@ -1,0 +1,19 @@
+
+root = true
+
+[*]
+end_of_line = lf
+max_line_length = 80
+insert_final_newline = true
+
+[*.py]
+indent_style = tab
+indent_size = 4
+
+[*.{c,h}]
+indent_style = tab
+indent_size = 4
+
+[*.{xml,xsd}]
+indent_style = tab
+indent_size = 4
