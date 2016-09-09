@@ -72,6 +72,11 @@ static clish_xml_cb_t xml_elements[] = {
  * if CLISH_PATH is unset in the environment then this is the value used. 
  */
 const char *default_path = "/etc/clish;~/.clish";
+#ifdef WIN32
+const char *path_separators = ";";
+#else
+const char *path_separators = ":;";
+#endif
 
 static int process_node(clish_shell_t *shell, clish_xmlnode_t *node,
 	void *parent);
@@ -109,8 +114,8 @@ int clish_shell_load_scheme(clish_shell_t *this, const char *xml_path, const cha
 	buffer = lub_system_tilde_expand(path);
 
 	/* Loop though each directory */
-	for (dirname = strtok_r(buffer, ";", &saveptr);
-		dirname; dirname = strtok_r(NULL, ";", &saveptr)) {
+	for (dirname = strtok_r(buffer, path_separators, &saveptr);
+		dirname; dirname = strtok_r(NULL, path_separators, &saveptr)) {
 		struct dirent *entry;
 
 		/* Search this directory for any XML files */
