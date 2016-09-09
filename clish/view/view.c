@@ -191,6 +191,20 @@ clish_command_t *clish_view_new_command(clish_view_t * this,
 }
 
 /*--------------------------------------------------------- */
+void clish_view_insert_command(clish_view_t * this,
+	const clish_command_t *cmd)
+{
+	/* insert command into the binary tree for this view */
+	if (-1 == lub_bintree_insert(&this->tree, cmd)) {
+		/* inserting a duplicate command is bad */
+		clish_command_delete(cmd);
+		cmd = NULL;
+	}
+	/* set the pview correctly */
+	clish_command__set_pview(cmd, this);
+}
+
+/*--------------------------------------------------------- */
 /* This method identifies the command (if any) which provides
  * the longest match with the specified line of text.
  *

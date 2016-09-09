@@ -52,6 +52,8 @@ lub_list_t * clish_view__get_nspace_tree(clish_view_t *instance);
 void clish_view_delete(clish_view_t * instance);
 clish_command_t *clish_view_new_command(clish_view_t * instance,
 	const char *name, const char *text);
+void clish_view_insert_command(clish_view_t * instance,
+	const clish_command_t *cmd);
 clish_command_t *clish_view_find_command(clish_view_t * instance,
 	const char *name, bool_t inherit);
 const clish_command_t *clish_view_find_next_completion(clish_view_t * instance,
