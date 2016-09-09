@@ -35,6 +35,8 @@ int clish_view_compare(const void *clientnode, const void *clientkey);
 void clish_view_delete(void *instance);
 clish_command_t *clish_view_new_command(clish_view_t * instance,
 	const char *name, const char *text);
+bool_t clish_view_insert_command(clish_view_t * instance,
+	clish_command_t *cmd);
 clish_command_t *clish_view_find_command(clish_view_t * instance,
 	const char *name, bool_t inherit);
 const clish_command_t *clish_view_find_next_completion(clish_view_t * instance,

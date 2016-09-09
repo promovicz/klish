@@ -98,16 +98,35 @@ clish_command_t *clish_view_new_command(clish_view_t * this,
 	clish_command_t *cmd = clish_command_new(name, help);
 	assert(cmd);
 
-	/* if this is a command other than the startup command... */
-	if (NULL != help) {
-		/* ...insert it into the binary tree for this view */
-		if (-1 == lub_bintree_insert(&this->tree, cmd)) {
-			/* inserting a duplicate command is bad */
-			clish_command_delete(cmd);
-			cmd = NULL;
-		}
+	/* do not insert startup/wdog command */
+	if(!help) {
+		return cmd;
 	}
+
+	/* try to insert the command */
+	if(!clish_view_insert_command(this, cmd)) {
+		/* ignore duplicate */
+		clish_command_delete(cmd);
+		cmd = NULL;
+	}
+
+	/* return */
 	return cmd;
+}
+
+/*--------------------------------------------------------- */
+bool_t clish_view_insert_command(clish_view_t * this,
+	clish_command_t *cmd)
+{
+	/* insert command into the binary tree for this view */
+	if (-1 == lub_bintree_insert(&this->tree, cmd)) {
+		/* duplicate, not inserted */
+		return BOOL_FALSE;
+	}
+	/* set the pview correctly */
+	clish_command__set_pview(cmd, this);
+	/* Return */
+	return BOOL_TRUE;
 }
 
 /*--------------------------------------------------------- */
