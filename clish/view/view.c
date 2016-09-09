@@ -180,12 +180,8 @@ clish_command_t *clish_view_new_command(clish_view_t * this,
 
 	/* if this is a command other than the startup command... */
 	if (NULL != help) {
-		/* ...insert it into the binary tree for this view */
-		if (-1 == lub_bintree_insert(&this->tree, cmd)) {
-			/* inserting a duplicate command is bad */
-			clish_command_delete(cmd);
-			cmd = NULL;
-		}
+		/* ...then insert it */
+		clish_view_insert_command(this, cmd);
 	}
 	return cmd;
 }
