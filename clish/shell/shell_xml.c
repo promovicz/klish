@@ -109,8 +109,8 @@ int clish_shell_load_scheme(clish_shell_t *this, const char *xml_path, const cha
 	buffer = lub_system_tilde_expand(path);
 
 	/* Loop though each directory */
-	for (dirname = strtok_r(buffer, ";", &saveptr);
-		dirname; dirname = strtok_r(NULL, ";", &saveptr)) {
+	for (dirname = strtok_r(buffer, ";:", &saveptr);
+		dirname; dirname = strtok_r(NULL, ";:", &saveptr)) {
 		struct dirent *entry;
 
 		/* Search this directory for any XML files */
