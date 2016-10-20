@@ -1,5 +1,4 @@
 
-#include <dlfcn.h>
 #include <stdio.h>
 
 #include "lub/ini.h"
@@ -9,19 +8,9 @@
 
 #include "pyerrors.h"
 
-/* XXX this should contain the SOVERSION */
-#define PYTHON_DYNLIB "lib"PYTHON_LIB".so"
-
 CLISH_PLUGIN_INIT(python)
 {
 	char *config;
-
-#ifdef DEBUG
-	fprintf(stderr, "plugin_python_dlopen(%s)\n", PYTHON_DYNLIB);
-#endif
-	void *handle = dlopen(PYTHON_DYNLIB, RTLD_NOW|RTLD_GLOBAL);
-	if(!handle)
-		return (-1);
 
 #ifdef DEBUG
 	fprintf(stderr, "plugin_python_init\n");
