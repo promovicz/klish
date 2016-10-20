@@ -1,4 +1,4 @@
-if PYTHON_USE
+if ENABLE_PYTHON
 
 lib_LTLIBRARIES += clish_plugin_python.la
 
@@ -46,4 +46,4 @@ EXTRA_DIST += \
 	plugins/python/symbols.map \
 	plugins/python/version.map
 
-endif # PYTHON_USE
+endif # ENABLE_PYTHON

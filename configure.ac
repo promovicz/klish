@@ -101,23 +101,31 @@ fi
 # Check for Python support
 ################################
 
-sinclude(autoconf/ax_python.m4)
-sinclude(autoconf/ax_python_devel.m4)
-AX_PYTHON_DEVEL( )
-AX_PYTHON
-AX_PYTHON_DEFAULT( )
-AX_PYTHON_ENABLE( )
-AX_PYTHON_WITH( )
-AX_PYTHON_PATH( )
-# if $PYTHON is not defined, then the following do nothing.
-AX_PYTHON_VERSION_ENSURE( [2.7] )
-AX_PYTHON_CSPEC
-AX_PYTHON_LSPEC
+# Enable argument selects plugin support
+AC_ARG_ENABLE(python,
+              [AS_HELP_STRING([--enable-python],
+                              [Build the python plugin [default=no]])],
+              [],
+              [enable_python=no])
+AM_CONDITIONAL(ENABLE_PYTHON,test x$enable_python != xno)
 
-if test x$PYTHON_USE != xfalse; then
-    AC_DEFINE_UNQUOTED([PYTHON_LIB],
-                       ["$PYTHON_LIB"],
-                       [Name of python library])
+# Handle the with argument
+AX_PYTHON_DEFAULT( )
+AX_PYTHON_WITH( )
+
+# Detect details only when enabled
+if test x$enable_python != xno; then
+  # if not found then try the path
+  if test -z "$PYTHON"; then
+    AX_PYTHON_PATH( )
+  fi
+  # insist on having python if enabled
+  AX_PYTHON_INSIST( )
+  # check the version
+  AX_PYTHON_VERSION_ENSURE( [2.7] )
+  # we want compiler and linker params
+  AX_PYTHON_CSPEC
+  AX_PYTHON_LSPEC
 fi
 
 ################################
