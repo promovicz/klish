@@ -4,7 +4,7 @@
 #include "private.h"
 
 typedef struct {
-    PyObject_HEAD
+	PyObject_HEAD
 	clish_view_t *view;
 } python_view_t;
 
@@ -99,21 +99,21 @@ view_get_access(python_view_t * self, void * closure)
 
 static PyGetSetDef view_getset[] = {
 	{"name", (getter)view_get_name, NULL,
-     "Return view name"
-    },
+		"Return view name"
+	},
 	{"prompt", (getter)view_get_prompt, NULL,
-     "Return view prompt"
-    },
+		"Return view prompt"
+	},
 	{"depth", (getter)view_get_depth, NULL,
-     "Return view depth"
-    },
+		"Return view depth"
+	},
 	{"restore", (getter)view_get_restore, NULL,
-     "Return restore mode"
-    },
+		"Return restore mode"
+	},
 	{"access", (getter)view_get_access, NULL,
-     "Return view access"
-    },
-    {NULL}  /* Sentinel */
+		"Return view access"
+	},
+	{NULL}  /* Sentinel */
 };
 
 static PyObject *
@@ -171,13 +171,13 @@ view_find_command(python_view_t * self, PyObject * args)
 
 static PyMethodDef view_methods[] = {
 	{"new_command", (PyCFunction)view_new_command, METH_VARARGS,
-     "Create new command in this view"
+		"Create new command in this view"
 	},
 	{"new_command_link", (PyCFunction)view_new_command_link, METH_VARARGS,
-     "Create new linked command in this view"
+		"Create new linked command in this view"
 	},
 	{"find_command", (PyCFunction)view_find_command, METH_VARARGS,
-     "Find named command, second argument controls inheritance"
+		"Find named command, second argument controls inheritance"
 	},
 	{NULL}  /* Sentinel */
 };
@@ -190,11 +190,11 @@ void clish_python_init_view(PyObject *module)
 	type->tp_getset = view_getset;
 	type->tp_methods = view_methods;
 	/* prepare type */
-    if (PyType_Ready(type) < 0)
-        return;
+	if (PyType_Ready(type) < 0)
+		return;
 	/* add type to module */
-    Py_INCREF((PyObject*)type);
-    PyModule_AddObject(module, "View", (PyObject*)type);
+	Py_INCREF((PyObject*)type);
+	PyModule_AddObject(module, "View", (PyObject*)type);
 }
 
 PyObject * clish_python_wrap_view(const clish_view_t *view)

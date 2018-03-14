@@ -4,35 +4,35 @@
 #include "private.h"
 
 typedef struct {
-    PyObject_HEAD
+	PyObject_HEAD
 	clish_pargv_t *pargv;
 } python_pargv_t;
 
 #define PARGV_TYPE (&clish_python_type_pargv)
 
 PyTypeObject clish_python_type_pargv = {
-    PyObject_HEAD_INIT(NULL)
-    0,                         /*ob_size*/
-    "clish.Pargv",             /*tp_name*/
-    sizeof(python_pargv_t),    /*tp_basicsize*/
-    0,                         /*tp_itemsize*/
-    0,                         /*tp_dealloc*/
-    0,                         /*tp_print*/
-    0,                         /*tp_getattr*/
-    0,                         /*tp_setattr*/
-    0,                         /*tp_compare*/
-    0,                         /*tp_repr*/
-    0,                         /*tp_as_number*/
-    0,                         /*tp_as_sequence*/
-    0,                         /*tp_as_mapping*/
-    0,                         /*tp_hash */
-    0,                         /*tp_call*/
-    0,                         /*tp_str*/
-    0,                         /*tp_getattro*/
-    0,                         /*tp_setattro*/
-    0,                         /*tp_as_buffer*/
-    Py_TPFLAGS_DEFAULT,        /*tp_flags*/
-    "clish pargv",             /*tp_doc*/
+	PyObject_HEAD_INIT(NULL)
+	0,                         /*ob_size*/
+	"clish.Pargv",             /*tp_name*/
+	sizeof(python_pargv_t),    /*tp_basicsize*/
+	0,                         /*tp_itemsize*/
+	0,                         /*tp_dealloc*/
+	0,                         /*tp_print*/
+	0,                         /*tp_getattr*/
+	0,                         /*tp_setattr*/
+	0,                         /*tp_compare*/
+	0,                         /*tp_repr*/
+	0,                         /*tp_as_number*/
+	0,                         /*tp_as_sequence*/
+	0,                         /*tp_as_mapping*/
+	0,                         /*tp_hash */
+	0,                         /*tp_call*/
+	0,                         /*tp_str*/
+	0,                         /*tp_getattro*/
+	0,                         /*tp_setattro*/
+	0,                         /*tp_as_buffer*/
+	Py_TPFLAGS_DEFAULT,        /*tp_flags*/
+	"clish pargv",             /*tp_doc*/
 };
 
 static Py_ssize_t pargv_mp_length(python_pargv_t * self)
@@ -55,27 +55,27 @@ static PyObject * pargv_mp_subscript(python_pargv_t * self, PyObject * key)
 }
 
 static PyMappingMethods pargv_mp_methods = {
-    (lenfunc)pargv_mp_length,              /*mp_length*/
-    (binaryfunc)pargv_mp_subscript,        /*mp_subscript*/
+	(lenfunc)pargv_mp_length,              /*mp_length*/
+	(binaryfunc)pargv_mp_subscript,        /*mp_subscript*/
 	NULL,                                  /*mp_ass_subscript*/
 };
 
 static PyMethodDef pargv_methods[] = {
 #if 0
 	{"find_param", (PyCFunction)pargv_find_param, METH_NOARGS,
-     "Find named parameter"
+		"Find named parameter"
 	},
 	{"find_default", (PyCFunction)pargv_find_default, METH_NOARGS,
-     "Find default parameter"
+		"Find default parameter"
 	},
 	{"insert", (PyCFunction)pargv_insert, METH_NOARGS,
-     "Insert a parameter"
+		"Insert a parameter"
 	},
 	{"remove", (PyCFunction)pargv_remove, METH_NOARGS,
-     "Remove a parameter"
+		"Remove a parameter"
 	},
 #endif
-    {NULL}  /* Sentinel */
+	{NULL}  /* Sentinel */
 };
 
 void clish_python_init_pargv(PyObject *module)
@@ -85,11 +85,11 @@ void clish_python_init_pargv(PyObject *module)
 	type->tp_as_mapping = &pargv_mp_methods;
 	type->tp_methods = pargv_methods;
 	/* prepare type */
-    if (PyType_Ready(type) < 0)
-        return;
+	if (PyType_Ready(type) < 0)
+		return;
 	/* add type to module */
-    Py_INCREF((PyObject*)type);
-    PyModule_AddObject(module, "Pargv", (PyObject*)type);
+	Py_INCREF((PyObject*)type);
+	PyModule_AddObject(module, "Pargv", (PyObject*)type);
 }
 
 PyObject * clish_python_wrap_pargv(const clish_pargv_t *pargv)

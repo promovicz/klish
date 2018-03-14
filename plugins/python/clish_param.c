@@ -4,35 +4,35 @@
 #include "private.h"
 
 typedef struct {
-    PyObject_HEAD
+	PyObject_HEAD
 	clish_param_t *param;
 } python_param_t;
 
 #define PARAM_TYPE (&clish_python_type_param)
 
 PyTypeObject clish_python_type_param = {
-    PyObject_HEAD_INIT(NULL)
-    0,                         /*ob_size*/
-    "clish.Param",             /*tp_name*/
-    sizeof(python_param_t),    /*tp_basicsize*/
-    0,                         /*tp_itemsize*/
-    0,                         /*tp_dealloc*/
-    0,                         /*tp_print*/
-    0,                         /*tp_getattr*/
-    0,                         /*tp_setattr*/
-    0,                         /*tp_compare*/
-    0,                         /*tp_repr*/
-    0,                         /*tp_as_number*/
-    0,                         /*tp_as_sequence*/
-    0,                         /*tp_as_mapping*/
-    0,                         /*tp_hash */
-    0,                         /*tp_call*/
-    0,                         /*tp_str*/
-    0,                         /*tp_getattro*/
-    0,                         /*tp_setattro*/
-    0,                         /*tp_as_buffer*/
-    Py_TPFLAGS_DEFAULT,        /*tp_flags*/
-    "clish param",             /*tp_doc*/
+	PyObject_HEAD_INIT(NULL)
+	0,                         /*ob_size*/
+	"clish.Param",             /*tp_name*/
+	sizeof(python_param_t),    /*tp_basicsize*/
+	0,                         /*tp_itemsize*/
+	0,                         /*tp_dealloc*/
+	0,                         /*tp_print*/
+	0,                         /*tp_getattr*/
+	0,                         /*tp_setattr*/
+	0,                         /*tp_compare*/
+	0,                         /*tp_repr*/
+	0,                         /*tp_as_number*/
+	0,                         /*tp_as_sequence*/
+	0,                         /*tp_as_mapping*/
+	0,                         /*tp_hash */
+	0,                         /*tp_call*/
+	0,                         /*tp_str*/
+	0,                         /*tp_getattro*/
+	0,                         /*tp_setattro*/
+	0,                         /*tp_as_buffer*/
+	Py_TPFLAGS_DEFAULT,        /*tp_flags*/
+	"clish param",             /*tp_doc*/
 };
 
 static PyObject *
@@ -135,62 +135,62 @@ param_get_access(python_param_t * self, void * closure)
 
 static PyGetSetDef param_getset[] = {
 	{"name", (getter)param_get_name, NULL,
-     "Return parameter name"
-    },
+		"Return parameter name"
+	},
 	{"ptype_name", (getter)param_get_ptype_name, NULL,
-     "Return parameter ptype name"
-    },
+		"Return parameter ptype name"
+	},
 	{"text", (getter)param_get_text, NULL,
-     "Return parameter text"
-    },
+		"Return parameter text"
+	},
 	{"range", (getter)param_get_range, NULL,
-     "Return parameter range"
-    },
+		"Return parameter range"
+	},
 	{"default", (getter)param_get_default, NULL,
-     "Return parameter default"
-    },
+		"Return parameter default"
+	},
 	{"ptype", (getter)param_get_ptype, NULL,
-     "Return parameter ptype"
-    },
+		"Return parameter ptype"
+	},
 #if 0
 	{"mode", (getter)param_get_mode, NULL,
-     "Return parameter mode"
-    },
+		"Return parameter mode"
+	},
 #endif
 	{"params", (getter)param_get_params, NULL,
-     "Return parameter params"
-    },
+		"Return parameter params"
+	},
 	{"optional", (getter)param_get_optional, NULL,
-     "Return parameter optional"
-    },
+		"Return parameter optional"
+	},
 	{"order", (getter)param_get_order, NULL,
-     "Return parameter order"
-    },
+		"Return parameter order"
+	},
 	{"value", (getter)param_get_value, NULL,
-     "Return parameter value"
-    },
+		"Return parameter value"
+	},
 	{"hidden", (getter)param_get_hidden, NULL,
-     "Return parameter hidden"
-    },
+		"Return parameter hidden"
+	},
 	{"test", (getter)param_get_test, NULL,
-     "Return parameter hidden"
-    },
+		"Return parameter hidden"
+	},
 	{"completion", (getter)param_get_completion, NULL,
-     "Return parameter hidden"
-    },
+		"Return parameter hidden"
+	},
 	{"access", (getter)param_get_access, NULL,
-     "Return parameter hidden"
-    },
-    {NULL}  /* Sentinel */
+		"Return parameter hidden"
+	},
+	{NULL}  /* Sentinel */
 };
 
 static PyMethodDef param_methods[] = {
 #if 0
 	{"find_param", (PyCFunction)context_find_param, METH_NOARGS,
-     "Find named parameter"
+		"Find named parameter"
 	},
 #endif
-    {NULL}  /* Sentinel */
+	{NULL}  /* Sentinel */
 };
 
 void clish_python_init_param(PyObject *module)
@@ -200,11 +200,11 @@ void clish_python_init_param(PyObject *module)
 	type->tp_getset = param_getset;
 	type->tp_methods = param_methods;
 	/* prepare type */
-    if (PyType_Ready(type) < 0)
-        return;
+	if (PyType_Ready(type) < 0)
+		return;
 	/* add type to module */
-    Py_INCREF((PyObject*)type);
-    PyModule_AddObject(module, "Param", (PyObject*)type);
+	Py_INCREF((PyObject*)type);
+	PyModule_AddObject(module, "Param", (PyObject*)type);
 }
 
 PyObject * clish_python_wrap_param(const clish_param_t *param)

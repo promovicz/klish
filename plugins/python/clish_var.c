@@ -4,7 +4,7 @@
 #include "private.h"
 
 typedef struct {
-    PyObject_HEAD
+	PyObject_HEAD
 	clish_var_t *var;
 } python_var_t;
 
@@ -72,21 +72,21 @@ var_get_value(python_var_t * self, void * closure)
 
 static PyGetSetDef var_getset[] = {
 	{"name", (getter)var_get_name, NULL,
-     "Name of the variable"
+		"Name of the variable"
 	},
 	{"action", (getter)var_get_action, NULL,
-     "Action of the variable"
-    },
+		"Action of the variable"
+	},
 	{"dynamic", (getter)var_get_dynamic, NULL,
-     "True if variable is dynamic"
-    },
+		"True if variable is dynamic"
+	},
 	{"saved", (getter)var_get_saved, NULL,
-     "Saved value of the variable"
-    },
+		"Saved value of the variable"
+	},
 	{"value", (getter)var_get_value, NULL,
-     "Value of the variable"
-    },
-    {NULL}  /* Sentinel */
+		"Value of the variable"
+	},
+	{NULL}  /* Sentinel */
 };
 
 void clish_python_init_var(PyObject *module)
@@ -95,11 +95,11 @@ void clish_python_init_var(PyObject *module)
 	/* set type fields */
 	type->tp_getset = var_getset;
 	/* prepare type */
-    if (PyType_Ready(type) < 0)
-        return;
+	if (PyType_Ready(type) < 0)
+		return;
 	/* add type to module */
-    Py_INCREF((PyObject*)type);
-    PyModule_AddObject(module, "Var", (PyObject*)type);
+	Py_INCREF((PyObject*)type);
+	PyModule_AddObject(module, "Var", (PyObject*)type);
 }
 
 PyObject * clish_python_wrap_var(const clish_var_t *var)

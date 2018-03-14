@@ -4,40 +4,40 @@
 #include "private.h"
 
 typedef struct {
-    PyObject_HEAD
+	PyObject_HEAD
 	clish_command_t *command;
 } python_command_t;
 
 #define COMMAND_TYPE (&clish_python_type_command)
 
 PyTypeObject clish_python_type_command = {
-    PyObject_HEAD_INIT(NULL)
-    0,                         /*ob_size*/
-    "clish.Command",           /*tp_name*/
-    sizeof(python_command_t),  /*tp_basicsize*/
-    0,                         /*tp_itemsize*/
-    0,                         /*tp_dealloc*/
-    0,                         /*tp_print*/
-    0,                         /*tp_getattr*/
-    0,                         /*tp_setattr*/
-    0,                         /*tp_compare*/
-    0,                         /*tp_repr*/
-    0,                         /*tp_as_number*/
-    0,                         /*tp_as_sequence*/
-    0,                         /*tp_as_mapping*/
-    0,                         /*tp_hash */
-    0,                         /*tp_call*/
-    0,                         /*tp_str*/
-    0,                         /*tp_getattro*/
-    0,                         /*tp_setattro*/
-    0,                         /*tp_as_buffer*/
-    Py_TPFLAGS_DEFAULT,        /*tp_flags*/
-    "clish command",           /*tp_doc*/
+	PyObject_HEAD_INIT(NULL)
+	0,                         /*ob_size*/
+	"clish.Command",           /*tp_name*/
+	sizeof(python_command_t),  /*tp_basicsize*/
+	0,                         /*tp_itemsize*/
+	0,                         /*tp_dealloc*/
+	0,                         /*tp_print*/
+	0,                         /*tp_getattr*/
+	0,                         /*tp_setattr*/
+	0,                         /*tp_compare*/
+	0,                         /*tp_repr*/
+	0,                         /*tp_as_number*/
+	0,                         /*tp_as_sequence*/
+	0,                         /*tp_as_mapping*/
+	0,                         /*tp_hash */
+	0,                         /*tp_call*/
+	0,                         /*tp_str*/
+	0,                         /*tp_getattro*/
+	0,                         /*tp_setattro*/
+	0,                         /*tp_as_buffer*/
+	Py_TPFLAGS_DEFAULT,        /*tp_flags*/
+	"clish command",           /*tp_doc*/
 };
 
 static PyObject * command_new(PyTypeObject * subtype,
-							  PyObject * args,
-							  PyObject * kwds)
+				PyObject * args,
+				PyObject * kwds)
 {
 	const char *name = NULL;
 	const char *help = NULL;
@@ -210,77 +210,77 @@ command_get_access(python_command_t * self, void * closure)
 
 static PyGetSetDef command_getset[] = {
 	{"name", (getter)command_get_name, NULL,
-     "Return command name"
-    },
+		"Return command name"
+	},
 	{"suffix", (getter)command_get_suffix, NULL,
-     "Return command suffix"
-    },
+		"Return command suffix"
+	},
 	{"text", (getter)command_get_text, NULL,
-     "Return command text"
-    },
+		"Return command text"
+	},
 	{"detail", (getter)command_get_detail, NULL,
-     "Return command detail"
-    },
+		"Return command detail"
+	},
 	{"escape_chars", (getter)command_get_escape_chars, NULL,
-     "Return command escape characters"
-    },
+		"Return command escape characters"
+	},
 	{"regex_chars", (getter)command_get_regex_chars, NULL,
-     "Return command regex characters"
-    },
+		"Return command regex characters"
+	},
 	{"args", (getter)command_get_args, NULL,
-     "Return command args"
-    },
+		"Return command args"
+	},
 	{"action", (getter)command_get_action, NULL,
-     "Return command action"
-    },
+		"Return command action"
+	},
 	{"viewname", (getter)command_get_viewname, NULL,
-     "Return command viewname"
-    },
+		"Return command viewname"
+	},
 	{"viewid", (getter)command_get_viewid, NULL,
-     "Return command viewid"
-    },
+		"Return command viewid"
+	},
 	{"params", (getter)command_get_params, NULL,
-     "Return command params"
-    },
+		"Return command params"
+	},
 	{"pview", (getter)command_get_pview, NULL,
-     "Return command pview"
-    },
+		"Return command pview"
+	},
 	{"depth", (getter)command_get_depth, NULL,
-     "Return command depth"
-    },
+		"Return command depth"
+	},
 #if 0
 	{"restore", (getter)command_get_restore, NULL,
-     "Return command restore"
-    },
+		"Return command restore"
+	},
 #endif
 	{"orig", (getter)command_get_orig, NULL,
-     "Return command orig"
-    },
+		"Return command orig"
+	},
 	{"cmd", (getter)command_get_cmd, NULL,
-     "Return command cmd"
-    },
+		"Return command cmd"
+	},
 	{"lock", (getter)command_get_lock, NULL,
-     "Return command lock"
-    },
+		"Return command lock"
+	},
 	{"alias", (getter)command_get_alias, NULL,
-     "Return command alias"
-    },
+		"Return command alias"
+	},
 	{"alias_view", (getter)command_get_alias_view, NULL,
-     "Return command alias view"
-    },
+		"Return command alias view"
+	},
 	{"dynamic", (getter)command_get_dynamic, NULL,
-     "Return command dynamic"
-    },
+		"Return command dynamic"
+	},
 	{"interrupt", (getter)command_get_interrupt, NULL,
-     "Return command interrupt"
-    },
+		"Return command interrupt"
+	},
 	{"pager", (getter)command_get_pager, NULL,
-     "Return command pager"
-    },
+		"Return command pager"
+	},
 	{"access", (getter)command_get_access, NULL,
-     "Return command access"
-    },
-    {NULL}  /* Sentinel */
+		"Return command access"
+	},
+	{NULL}  /* Sentinel */
 };
 
 static PyObject *
@@ -311,10 +311,10 @@ command_remove_param(python_command_t * self, PyObject * args)
 
 static PyMethodDef command_methods[] = {
 	{"insert_param", (PyCFunction)command_insert_param, METH_VARARGS,
-     "Insert a param"
+		"Insert a param"
 	},
 	{"remove_param", (PyCFunction)command_remove_param, METH_VARARGS,
-     "Remove a param"
+		"Remove a param"
 	},
 	{NULL}  /* Sentinel */
 };
@@ -327,11 +327,11 @@ void clish_python_init_command(PyObject *module)
 	type->tp_getset = command_getset;
 	type->tp_methods = command_methods;
 	/* prepare type */
-    if (PyType_Ready(type) < 0)
-        return;
+	if (PyType_Ready(type) < 0)
+		return;
 	/* add type to module */
-    Py_INCREF((PyObject*)type);
-    PyModule_AddObject(module, "Command", (PyObject*)type);
+	Py_INCREF((PyObject*)type);
+	PyModule_AddObject(module, "Command", (PyObject*)type);
 }
 
 PyObject * clish_python_wrap_command(const clish_command_t *command)

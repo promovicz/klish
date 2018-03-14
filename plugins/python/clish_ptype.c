@@ -4,35 +4,35 @@
 #include "private.h"
 
 typedef struct {
-    PyObject_HEAD
+	PyObject_HEAD
 	clish_ptype_t *ptype;
 } python_ptype_t;
 
 #define PTYPE_TYPE (&clish_python_type_ptype)
 
 PyTypeObject clish_python_type_ptype = {
-    PyObject_HEAD_INIT(NULL)
-    0,                         /*ob_size*/
-    "clish.PType",             /*tp_name*/
-    sizeof(python_ptype_t),    /*tp_basicsize*/
-    0,                         /*tp_itemsize*/
-    0,                         /*tp_dealloc*/
-    0,                         /*tp_print*/
-    0,                         /*tp_getattr*/
-    0,                         /*tp_setattr*/
-    0,                         /*tp_compare*/
-    0,                         /*tp_repr*/
-    0,                         /*tp_as_number*/
-    0,                         /*tp_as_sequence*/
-    0,                         /*tp_as_mapping*/
-    0,                         /*tp_hash */
-    0,                         /*tp_call*/
-    0,                         /*tp_str*/
-    0,                         /*tp_getattro*/
-    0,                         /*tp_setattro*/
-    0,                         /*tp_as_buffer*/
-    Py_TPFLAGS_DEFAULT,        /*tp_flags*/
-    "clish ptype",             /*tp_doc*/
+	PyObject_HEAD_INIT(NULL)
+	0,                         /*ob_size*/
+	"clish.PType",             /*tp_name*/
+	sizeof(python_ptype_t),    /*tp_basicsize*/
+	0,                         /*tp_itemsize*/
+	0,                         /*tp_dealloc*/
+	0,                         /*tp_print*/
+	0,                         /*tp_getattr*/
+	0,                         /*tp_setattr*/
+	0,                         /*tp_compare*/
+	0,                         /*tp_repr*/
+	0,                         /*tp_as_number*/
+	0,                         /*tp_as_sequence*/
+	0,                         /*tp_as_mapping*/
+	0,                         /*tp_hash */
+	0,                         /*tp_call*/
+	0,                         /*tp_str*/
+	0,                         /*tp_getattro*/
+	0,                         /*tp_setattro*/
+	0,                         /*tp_as_buffer*/
+	Py_TPFLAGS_DEFAULT,        /*tp_flags*/
+	"clish ptype",             /*tp_doc*/
 };
 
 static PyObject *
@@ -105,24 +105,24 @@ ptype_get_preprocess(python_ptype_t * self, void * closure)
 
 static PyGetSetDef ptype_getset[] = {
 	{"name", (getter)ptype_get_name, NULL,
-     "Name of the ptype"
-    },
+		"Name of the ptype"
+	},
 	{"text", (getter)ptype_get_text, NULL,
-     "Description text of the ptype"
-    },
+		"Description text of the ptype"
+	},
 	{"pattern", (getter)ptype_get_pattern, NULL,
-     "Pattern definition of the ptype"
-    },
+		"Pattern definition of the ptype"
+	},
 	{"range", (getter)ptype_get_range, NULL,
-     "Range definition of the ptype"
-    },
+		"Range definition of the ptype"
+	},
 	{"method", (getter)ptype_get_method, NULL,
-     "Pattern method of the ptype"
-    },
+		"Pattern method of the ptype"
+	},
 	{"preprocess", (getter)ptype_get_preprocess, NULL,
-     "Preprocessing method of the ptype"
-    },
-    {NULL}  /* Sentinel */
+		"Preprocessing method of the ptype"
+	},
+	{NULL}  /* Sentinel */
 };
 
 static PyObject *
@@ -153,11 +153,11 @@ void clish_python_init_ptype(PyObject *module)
 	type->tp_getset = ptype_getset;
 	type->tp_methods = ptype_methods;
 	/* prepare type */
-    if (PyType_Ready(type) < 0)
-        return;
+	if (PyType_Ready(type) < 0)
+		return;
 	/* add type to module */
-    Py_INCREF((PyObject*)type);
-    PyModule_AddObject(module, "PType", (PyObject*)type);
+	Py_INCREF((PyObject*)type);
+	PyModule_AddObject(module, "PType", (PyObject*)type);
 }
 
 PyObject * clish_python_wrap_ptype(const clish_ptype_t *ptype)

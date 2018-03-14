@@ -4,7 +4,7 @@
 #include "private.h"
 
 typedef struct {
-    PyObject_HEAD
+	PyObject_HEAD
 	clish_sym_t *sym;
 } python_sym_t;
 
@@ -62,27 +62,27 @@ static PyGetSetDef sym_getset[] = {
 #if 0
 	/* Probably never */
 	{"func", (getter)sym_get_func, NULL,
-     "Function of the symbol"
+		"Function of the symbol"
 	},
 #endif
 	{"name", (getter)sym_get_name, NULL,
-     "Name of the symbol"
+		"Name of the symbol"
 	},
 	{"permanent", (getter)sym_get_permanent, NULL,
-     "Action of the symbol"
-    },
+		"Action of the symbol"
+	},
 #if 0
 	{"plugin", (getter)sym_get_plugin, NULL,
-     "Plugin of the symbol"
-    },
+		"Plugin of the symbol"
+	},
 	{"type", (getter)sym_get_type, NULL,
-     "Type of the symbol"
-    },
+		"Type of the symbol"
+	},
 	{"api", (getter)sym_get_api, NULL,
-     "API of the symbol"
-    },
+		"API of the symbol"
+	},
 #endif
-    {NULL}  /* Sentinel */
+	{NULL}  /* Sentinel */
 };
 
 void clish_python_init_sym(PyObject *module)
@@ -91,11 +91,11 @@ void clish_python_init_sym(PyObject *module)
 	/* set type fields */
 	type->tp_getset = sym_getset;
 	/* prepare type */
-    if (PyType_Ready(type) < 0)
-        return;
+	if (PyType_Ready(type) < 0)
+		return;
 	/* add type to module */
-    Py_INCREF((PyObject*)type);
-    PyModule_AddObject(module, "Sym", (PyObject*)type);
+	Py_INCREF((PyObject*)type);
+	PyModule_AddObject(module, "Sym", (PyObject*)type);
 }
 
 PyObject * clish_python_wrap_sym(const clish_sym_t *sym)
