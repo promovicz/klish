@@ -87,6 +87,21 @@ static void clish_shell_unlock(int lock_fd)
 }
 
 /*----------------------------------------------------------- */
+// Prints return value in a case of machine oriented protocol
+void clish_shell_machine_retval(clish_shell_t *shell, int retval)
+{
+	assert(shell);
+	if (!shell)
+		return;
+
+	if (!clish_shell_is_machine_interface(shell))
+		return;
+
+	printf("\033[%dR\n", retval);
+	fflush(stdout);
+}
+
+/*----------------------------------------------------------- */
 int clish_shell_execute(clish_context_t *context, char **out)
 {
 	clish_shell_t *this = clish_context__get_shell(context);
@@ -151,6 +166,9 @@ int clish_shell_execute(clish_context_t *context, char **out)
 		if (space)
 			free(space);
 	}
+
+	// Machine oriented protocol outputs return value
+	clish_shell_machine_retval(this, result);
 
 	/* Unlock the lockfile */
 	if (lock_fd != -1)

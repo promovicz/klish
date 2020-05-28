@@ -78,6 +78,7 @@ struct clish_shell_s {
 
 	/* Boolean flags */
 	bool_t interactive; /* Is shell interactive. */
+	bool_t machine_interface; /* Machine oriented interface with special protocol */
 	bool_t log; /* If command logging is enabled */
 	int log_facility; /* Syslog facility */
 	bool_t dryrun; /* Is this a dry-running */

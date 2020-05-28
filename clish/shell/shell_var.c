@@ -112,6 +112,12 @@ static char *find_context_var(const char *name, clish_context_t *this)
 		else
 			result = strdup("0");
 
+	} else if (!lub_string_nocasecmp(name, "_machine_interface")) {
+		if (clish_shell_is_machine_interface(this->shell))
+			result = strdup("1");
+		else
+			result = strdup("0");
+
 	} else if (!lub_string_nocasecmp(name, "_pid")) {
 		char tmp[10];
 		snprintf(tmp, sizeof(tmp), "%u", getpid());

@@ -652,6 +652,7 @@ static void tinyrl_init(tinyrl_t * this, FILE * istream, FILE * ostream,
 	this->last_point = 0;
 	this->last_line_size = 0;
 	this->utf8 = BOOL_FALSE;
+	this->machine_interface = BOOL_FALSE;
 
 	/* create the vt100 terminal */
 	this->term = tinyrl_vt100_new(NULL, ostream);
@@ -739,9 +740,20 @@ static void tinyrl_internal_position(const tinyrl_t *this, int prompt_len,
 /* Jump to first free line after current multiline input   */
 void tinyrl_multi_crlf(const tinyrl_t * this)
 {
-	unsigned int line_size = strlen(this->last_buffer);
-	unsigned int line_len = utf8_nsyms(this, this->last_buffer, line_size);
-	unsigned int count = utf8_nsyms(this, this->last_buffer, this->last_point);
+	unsigned int line_size = 0;
+	unsigned int line_len = 0;
+	unsigned int count = 0;
+
+	assert(this);
+	if (!this)
+		return;
+
+	if (tinyrl_is_machine_interface(this))
+		return;
+
+	line_size = strlen(this->last_buffer);
+	line_len = utf8_nsyms(this, this->last_buffer, line_size);
+	count = utf8_nsyms(this, this->last_buffer, this->last_point);
 
 	tinyrl_internal_position(this, this->prompt_len + line_len,
 		- (line_len - count), this->last_width);
@@ -752,11 +764,20 @@ void tinyrl_multi_crlf(const tinyrl_t * this)
 /*----------------------------------------------------------------------- */
 void tinyrl_redisplay(tinyrl_t * this)
 {
-	unsigned int line_size = strlen(this->line);
-	unsigned int line_len = utf8_nsyms(this, this->line, line_size);
-	unsigned int width = tinyrl_vt100__get_width(this->term);
-	unsigned int count, eq_chars = 0;
-	int cols;
+	unsigned int line_size = 0;
+	unsigned int line_len = 0;
+	unsigned int width = 0;
+	unsigned int count = 0;
+	unsigned int eq_chars = 0;
+	int cols = 0;
+
+	// Don't redisplay for non-interactive machine interface
+	if (tinyrl_is_machine_interface(this))
+		return;
+
+	line_size = strlen(this->line);
+	line_len = utf8_nsyms(this, this->line, line_size);
+	width = tinyrl_vt100__get_width(this->term);
 
 	/* Prepare print position */
 	if (this->last_buffer && (width == this->last_width)) {
@@ -862,7 +883,7 @@ static char *internal_readline(tinyrl_t * this,
 	this->context = context;
 
 	/* Interactive session */
-	if (this->isatty && !str) {
+	if (tinyrl__get_isatty(this) && !str) {
 		unsigned int utf8_cont = 0; /* UTF-8 continue bytes */
 		unsigned int esc_cont = 0; /* Escape sequence continues */
 		char esc_seq[10]; /* Buffer for ESC sequence */
@@ -1516,6 +1537,16 @@ void tinyrl__set_istream(tinyrl_t * this, FILE * istream)
 /*-------------------------------------------------------- */
 bool_t tinyrl__get_isatty(const tinyrl_t * this)
 {
+	assert(this);
+	if (!this)
+		return BOOL_FALSE;
+
+	// The machine interface can be forced. It means the interaction is not
+	// interactive and stdin/stdout considered as not terminal but just as
+	// a stream. So return fake value.
+	if (tinyrl_is_machine_interface(this))
+		return BOOL_FALSE;
+
 	return this->isatty;
 }
 
@@ -1654,4 +1685,33 @@ void tinyrl__stifle_history(tinyrl_t *this, unsigned int stifle)
 {
 	tinyrl_history_stifle(this->history, stifle);
 }
+
 /*--------------------------------------------------------- */
+void tinyrl_set_machine_interface(tinyrl_t *this)
+{
+	assert(this);
+	if (!this)
+		return;
+
+	this->machine_interface = BOOL_TRUE;
+}
+
+/*--------------------------------------------------------- */
+void tinyrl_set_human_interface(tinyrl_t *this)
+{
+	assert(this);
+	if (!this)
+		return;
+
+	this->machine_interface = BOOL_FALSE;
+}
+
+/*--------------------------------------------------------- */
+bool_t tinyrl_is_machine_interface(const tinyrl_t *this)
+{
+	assert(this);
+	if (!this)
+		return BOOL_FALSE;
+
+	return this->machine_interface;
+}

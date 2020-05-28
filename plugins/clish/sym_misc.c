@@ -222,3 +222,28 @@ CLISH_PLUGIN_SYM(clish_macros)
 }
 
 /*----------------------------------------------------------- */
+CLISH_PLUGIN_SYM(clish_machine_interface)
+{
+	clish_shell_t *this = clish_context__get_shell(clish_context);
+	clish_shell_set_machine_interface(this);
+
+	script = script; /* Happy compiler */
+	out = out; /* Happy compiler */
+
+	return 0;
+}
+
+/*----------------------------------------------------------- */
+CLISH_PLUGIN_SYM(clish_human_interface)
+{
+	clish_shell_t *this = clish_context__get_shell(clish_context);
+	clish_shell_set_human_interface(this);
+
+	script = script; /* Happy compiler */
+	out = out; /* Happy compiler */
+
+	return 0;
+}
+
+
+/*----------------------------------------------------------- */

@@ -222,6 +222,12 @@ int clish_shell__set_udata(clish_shell_t *instance,
 /* Access functions */
 int clish_shell_prepare(clish_shell_t *instance);
 
+/* Machine/Human oriented protocol */
+bool_t clish_shell_is_machine_interface(const clish_shell_t *shell);
+void clish_shell_set_machine_interface(clish_shell_t *shell);
+void clish_shell_set_human_interface(clish_shell_t *shell);
+void clish_shell_machine_retval(clish_shell_t *shell, int retval);
+
 /*
  * Non shell specific functions.
  * Start and Stop XML parser engine.

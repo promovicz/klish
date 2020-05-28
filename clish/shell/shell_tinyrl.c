@@ -310,6 +310,9 @@ static bool_t clish_shell_tinyrl_key_enter(tinyrl_t *this, int key)
 			fprintf(stderr, "Syntax error on line %s:%u \"%s\": "
 			"%s\n", fname, shell->current_file->line, line, errmsg);
 		}
+		// Wrong line must return bad retval for machine oriented proto
+		// Let retval=2 means wrong command
+		clish_shell_machine_retval(shell, 2);
 	}
 
 	tinyrl_done(this);
