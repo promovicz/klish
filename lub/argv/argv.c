@@ -10,12 +10,14 @@
 #include <ctype.h>
 
 /*--------------------------------------------------------- */
-static void lub_argv_init(lub_argv_t * this, const char *line, size_t offset)
+static void lub_argv_init(lub_argv_t * this, const char *line, size_t off)
 {
-	size_t len;
-	const char *word;
-	lub_arg_t *arg;
-	size_t quoted;
+	size_t len = 0;
+	const char *word = NULL;
+	lub_arg_t *arg = NULL;
+	bool_t quoted = BOOL_FALSE;
+	const char *str = line + off; // Start on specified offset
+	const char *offset = NULL;
 
 	this->argv = NULL;
 	this->argc = 0;
@@ -30,19 +32,13 @@ static void lub_argv_init(lub_argv_t * this, const char *line, size_t offset)
 	assert(arg);
 
 	/* then fill out the array with the words */
-	for (word = lub_string_nextword(line, &len, &offset, &quoted);
-		*word || quoted;
-		word = lub_string_nextword(word + len, &len, &offset, &quoted)) {
+	for (word = lub_string_nextword(str, &len, &offset, &quoted, NULL);
+		word && (*word != '\0');
+		word = lub_string_nextword(str, &len, &offset, &quoted, NULL)) {
 		(*arg).arg = lub_string_ndecode(word, len);
-		(*arg).offset = offset;
-		(*arg).quoted = quoted ? BOOL_TRUE : BOOL_FALSE;
-
-		offset += len;
-
-		if (quoted) {
-			len += quoted - 1; /* account for terminating quotation mark */
-			offset += quoted; /* account for quotation marks */
-		}
+		(*arg).offset = offset - line;
+		(*arg).quoted = quoted;
+		str = offset;
 		arg++;
 	}
 }

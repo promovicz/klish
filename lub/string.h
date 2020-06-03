@@ -270,8 +270,8 @@ char *lub_string_encode(const char *string, const char *escape_chars);
 char *lub_string_tolower(const char *str);
 unsigned int lub_string_equal_part(const char *str1, const char *str2,
 	bool_t utf8);
-const char *lub_string_nextword(const char *string,
-	size_t *len, size_t *offset, size_t *quoted);
+const char *lub_string_nextword(const char *str,
+	size_t *len, const char **offset, bool_t *quoted, bool_t *qclosed);
 unsigned int lub_string_wordcount(const char *line);
 
 _END_C_DECL

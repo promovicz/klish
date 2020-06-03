@@ -90,20 +90,25 @@ const char *lub_ini_find(const lub_ini_t *this, const char *name)
 /*--------------------------------------------------------- */
 int lub_ini_parse_str(lub_ini_t *this, const char *ini)
 {
-	char *buffer;
+	char *buffer = NULL;
 	char *saveptr = NULL;
-	char *line;
+	char *line = NULL;
 
 	buffer = lub_string_dup(ini);
 	/* Now loop though each line */
 	for (line = strtok_r(buffer, "\n", &saveptr);
 		line; line = strtok_r(NULL, "\n", &saveptr)) {
 
-		char *str, *name, *value, *savestr = NULL, *ns = line;
-		const char *begin;
-		size_t len, offset, quoted;
-		char *rname, *rvalue;
-		lub_pair_t *pair;
+		char *str = NULL;
+		char *name = NULL;
+		char *value = NULL;
+		char *savestr = NULL;
+		char *ns = line;
+		const char *begin = NULL;
+		size_t len = 0;
+		char *rname = NULL;
+		char *rvalue = NULL;
+		lub_pair_t *pair = NULL;
 
 		if (!*ns) /* Empty */
 			continue;
@@ -120,12 +125,12 @@ int lub_ini_parse_str(lub_ini_t *this, const char *ini)
 			continue;
 		}
 		value = strtok_r(NULL, "=", &savestr);
-		begin = lub_string_nextword(name, &len, &offset, &quoted);
+		begin = lub_string_nextword(name, &len, NULL, NULL, NULL);
 		rname = lub_string_dupn(begin, len);
 		if (!value) /* Empty value */
 			rvalue = NULL;
 		else {
-			begin = lub_string_nextword(value, &len, &offset, &quoted);
+			begin = lub_string_nextword(value, &len, NULL, NULL, NULL);
 			rvalue = lub_string_dupn(begin, len);
 		}
 		pair = lub_pair_new(rname, rvalue);

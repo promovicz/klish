@@ -274,48 +274,111 @@ const char *lub_string_suffix(const char *string)
 }
 
 /*--------------------------------------------------------- */
-const char *lub_string_nextword(const char *string,
-	size_t *len, size_t *offset, size_t *quoted)
+/** @brief Find next word or quoted substring within string
+ *
+ * @param [in] str String to parse.
+ * @param [out] len Length of found substring (without quotes).
+ * @param [out] offset Pointer to first symbol after found substring.
+ * @param [out] quoted Is substring quoted?
+ * @param [out] qclosed Is closed quotes found?
+ * @return Pointer to found substring (without quotes).
+ */
+const char *lub_string_nextword(const char *str,
+	size_t *len, const char **offset, bool_t *quoted, bool_t *qclosed)
 {
-	const char *word;
+	const char *string = str;
+	const char *word = NULL;
+	const char dbl_quote = '"';
+	bool_t dbl_quoted = BOOL_FALSE;
+	const char alt_quote = '`';
+	unsigned int alt_quote_num = 0; // Number of opening alt quotes
+	bool_t alt_quoted = BOOL_FALSE;
+	bool_t closed_quote = BOOL_FALSE;
+	size_t length = 0;
 
-	*quoted = 0;
+	// Find the start of a word (not including an opening quote)
+	while (*string && isspace(*string))
+		string++;
 
-	/* Find the start of a word (not including an opening quote) */
-	while (*string && isspace(*string)) {
+	// Is this the start of a quoted string?
+	if (*string == dbl_quote) {
+		dbl_quoted = BOOL_TRUE;
 		string++;
-		(*offset)++;
-	}
-	/* Is this the start of a quoted string ? */
-	if (*string == '"') {
-		*quoted = 1;
-		string++;
+	} else if (*string == alt_quote) {
+		alt_quoted = BOOL_TRUE;
+		while (string && (*string == alt_quote)) {
+			string++;
+			alt_quote_num++; // Count starting quotes
+		}
 	}
 	word = string;
-	*len = 0;
 
-	/* Find the end of the word */
+	// Find the end of the word
 	while (*string) {
-		if (*string == '\\') {
+
+		// Standard double quotation
+		if (dbl_quoted) {
+			// End of word
+			if (*string == dbl_quote) {
+				closed_quote = BOOL_TRUE;
+				string++;
+				break;
+			}
+
+		// Alternative multi quotation
+		} else if (alt_quoted) {
+			unsigned int qnum = alt_quote_num;
+			while (string && (*string == alt_quote) && qnum) {
+				string++;
+				length++;
+				qnum--;
+			}
+			if (0 == qnum) { // End of word was found
+				// Quotes themselfs are not a part of a word
+				length -= alt_quote_num;
+				closed_quote = BOOL_TRUE;
+				break;
+			}
+			if (qnum != alt_quote_num) // Skipped some qoute symbols
+				continue;
+
+		// Not quoted
+		} else {
+			// End of word
+			if (isspace(*string))
+				break;
+		}
+
+		// Common case
+		// Escaping. It doesn't work within alt quoting
+		if (!alt_quoted && (*string == '\\')) {
+			// Skip escaping
 			string++;
-			(*len)++;
+			length++;
+			// Skip escaped symbol
 			if (*string) {
-				(*len)++;
+				length++;
 				string++;
 			}
 			continue;
 		}
-		/* End of word */
-		if (!*quoted && isspace(*string))
-			break;
-		if (*string == '"') {
-			/* End of a quoted string */
-			*quoted = 2;
-			break;
-		}
-		(*len)++;
+
+		length++;
 		string++;
 	}
+
+	// Skip strange symbols after quotation
+	while (*string && !isspace(*string))
+		string++;
+
+	if (len)
+		*len = length;
+	if (offset)
+		*offset = string;
+	if (quoted)
+		*quoted = dbl_quoted || alt_quoted;
+	if (qclosed)
+		*qclosed = closed_quote;
 
 	return word;
 }
@@ -323,16 +386,13 @@ const char *lub_string_nextword(const char *string,
 /*--------------------------------------------------------- */
 unsigned int lub_string_wordcount(const char *line)
 {
-	const char *word;
+	const char *word = NULL;
 	unsigned int result = 0;
-	size_t len = 0, offset = 0;
-	size_t quoted;
+	const char *offset = NULL;
 
-	for (word = lub_string_nextword(line, &len, &offset, &quoted);
-		*word || quoted;
-		word = lub_string_nextword(word + len, &len, &offset, &quoted)) {
-		/* account for the terminating quotation mark */
-		len += quoted ? quoted - 1 : 0;
+	for (word = lub_string_nextword(line, NULL, &offset, NULL, NULL);
+		word && (*word != '\0');
+		word = lub_string_nextword(offset, NULL, &offset, NULL, NULL)) {
 		result++;
 	}
 
