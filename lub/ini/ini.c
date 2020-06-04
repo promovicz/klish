@@ -125,12 +125,13 @@ int lub_ini_parse_str(lub_ini_t *this, const char *ini)
 			continue;
 		}
 		value = strtok_r(NULL, "=", &savestr);
-		begin = lub_string_nextword(name, &len, NULL, NULL, NULL);
+		begin = lub_string_nextword(name, &len, NULL, NULL, NULL, NULL);
 		rname = lub_string_dupn(begin, len);
 		if (!value) /* Empty value */
 			rvalue = NULL;
 		else {
-			begin = lub_string_nextword(value, &len, NULL, NULL, NULL);
+			begin = lub_string_nextword(value, &len, NULL, NULL,
+				NULL, NULL);
 			rvalue = lub_string_dupn(begin, len);
 		}
 		pair = lub_pair_new(rname, rvalue);

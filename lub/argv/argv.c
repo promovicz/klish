@@ -8,6 +8,7 @@
 #include <string.h>
 #include <assert.h>
 #include <ctype.h>
+#include <stdio.h>
 
 /*--------------------------------------------------------- */
 static void lub_argv_init(lub_argv_t * this, const char *line, size_t off)
@@ -16,6 +17,7 @@ static void lub_argv_init(lub_argv_t * this, const char *line, size_t off)
 	const char *word = NULL;
 	lub_arg_t *arg = NULL;
 	bool_t quoted = BOOL_FALSE;
+	bool_t alt_quoted = BOOL_FALSE;
 	const char *str = line + off; // Start on specified offset
 	const char *offset = NULL;
 
@@ -32,10 +34,13 @@ static void lub_argv_init(lub_argv_t * this, const char *line, size_t off)
 	assert(arg);
 
 	/* then fill out the array with the words */
-	for (word = lub_string_nextword(str, &len, &offset, &quoted, NULL);
+	for (word = lub_string_nextword(str, &len, &offset, &quoted, NULL, &alt_quoted);
 		word && (*word != '\0');
-		word = lub_string_nextword(str, &len, &offset, &quoted, NULL)) {
-		(*arg).arg = lub_string_ndecode(word, len);
+		word = lub_string_nextword(str, &len, &offset, &quoted, NULL, &alt_quoted)) {
+		if (alt_quoted)
+			(*arg).arg = lub_string_dupn(word, len);
+		else
+			(*arg).arg = lub_string_ndecode(word, len);
 		(*arg).offset = offset - line;
 		(*arg).quoted = quoted;
 		str = offset;

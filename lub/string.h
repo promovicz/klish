@@ -271,7 +271,8 @@ char *lub_string_tolower(const char *str);
 unsigned int lub_string_equal_part(const char *str1, const char *str2,
 	bool_t utf8);
 const char *lub_string_nextword(const char *str,
-	size_t *len, const char **offset, bool_t *quoted, bool_t *qclosed);
+	size_t *len, const char **offset, bool_t *quoted, bool_t *qclosed,
+	bool_t *alt_quoted);
 unsigned int lub_string_wordcount(const char *line);
 
 _END_C_DECL

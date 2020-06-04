@@ -284,7 +284,8 @@ const char *lub_string_suffix(const char *string)
  * @return Pointer to found substring (without quotes).
  */
 const char *lub_string_nextword(const char *str,
-	size_t *len, const char **offset, bool_t *quoted, bool_t *qclosed)
+	size_t *len, const char **offset, bool_t *quoted, bool_t *qclosed,
+	bool_t *altq)
 {
 	const char *string = str;
 	const char *word = NULL;
@@ -379,6 +380,8 @@ const char *lub_string_nextword(const char *str,
 		*quoted = dbl_quoted || alt_quoted;
 	if (qclosed)
 		*qclosed = closed_quote;
+	if (altq)
+		*altq = alt_quoted;
 
 	return word;
 }
@@ -390,9 +393,9 @@ unsigned int lub_string_wordcount(const char *line)
 	unsigned int result = 0;
 	const char *offset = NULL;
 
-	for (word = lub_string_nextword(line, NULL, &offset, NULL, NULL);
+	for (word = lub_string_nextword(line, NULL, &offset, NULL, NULL, NULL);
 		word && (*word != '\0');
-		word = lub_string_nextword(offset, NULL, &offset, NULL, NULL)) {
+		word = lub_string_nextword(offset, NULL, &offset, NULL, NULL, NULL)) {
 		result++;
 	}
 
