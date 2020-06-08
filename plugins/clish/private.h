@@ -23,3 +23,5 @@ CLISH_PLUGIN_OSYM(clish_script);
 CLISH_PLUGIN_SYM(clish_macros);
 CLISH_PLUGIN_SYM(clish_machine_interface);
 CLISH_PLUGIN_SYM(clish_human_interface);
+CLISH_PLUGIN_SYM(clish_print_script);
+CLISH_PLUGIN_SYM(clish_print_var);

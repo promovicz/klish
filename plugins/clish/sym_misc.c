@@ -245,5 +245,37 @@ CLISH_PLUGIN_SYM(clish_human_interface)
 	return 0;
 }
 
+/*----------------------------------------------------------- */
+/*
+ * Builtin: Print script
+ */
+CLISH_PLUGIN_SYM(clish_print_script)
+{
+	printf("%s\n", script);
+
+	out = out; /* Happy compiler */
+	clish_context = clish_context; /* Happy compiler */
+
+	return 0;
+}
+
+/*----------------------------------------------------------- */
+/*
+ * Builtin: Print param
+ */
+CLISH_PLUGIN_SYM(clish_print_var)
+{
+	char *str = NULL;
+
+	// Script contains variable name
+	str = clish_shell_expand_var(script, clish_context);
+	printf("%s\n", str);
+	lub_string_free(str);
+
+	out = out; /* Happy compiler */
+	clish_context = clish_context; /* Happy compiler */
+
+	return 0;
+}
 
 /*----------------------------------------------------------- */

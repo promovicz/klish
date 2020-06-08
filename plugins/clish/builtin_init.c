@@ -32,6 +32,8 @@ CLISH_PLUGIN_INIT(clish)
 	clish_plugin_add_osym(plugin, clish_script, "clish_script");
 	clish_plugin_add_psym(plugin, clish_machine_interface, "clish_machine_interface");
 	clish_plugin_add_psym(plugin, clish_human_interface, "clish_human_interface");
+	clish_plugin_add_psym(plugin, clish_print_script, "clish_print_script");
+	clish_plugin_add_psym(plugin, clish_print_var, "clish_print_var");
 
 	clish_shell = clish_shell; /* Happy compiler */
 
