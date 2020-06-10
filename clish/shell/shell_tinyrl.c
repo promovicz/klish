@@ -14,6 +14,7 @@
 #include <ctype.h>
 
 #include "tinyrl/tinyrl.h"
+#include "tinyrl/vt100.h"
 #include "tinyrl/history.h"
 
 #include "lub/string.h"
@@ -421,7 +422,7 @@ static void clish_shell_tinyrl_init(tinyrl_t * this)
 {
 	bool_t status;
 	/* bind the '?' key to the help function */
-	status = tinyrl_bind_key(this, '?', clish_shell_tinyrl_key_help);
+	status = tinyrl_bind_key(this, KEY_US, clish_shell_tinyrl_key_help);
 	assert(status);
 
 	/* bind the <RET> key to the help function */
