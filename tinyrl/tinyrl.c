@@ -572,6 +572,7 @@ bool_t tinyrl_get_ins_flag(tinyrl_t *this)
  * Ctrl+_ (Control_underscore 0x1f KEY_US) execute external function for this
  * key here.
  */
+/*
 static bool_t tinyrl_key_help(tinyrl_t *this, int key)
 {
 	if (!this || !this->handlers[KEY_US])
@@ -581,6 +582,7 @@ static bool_t tinyrl_key_help(tinyrl_t *this, int key)
 
 	return this->handlers[KEY_US](this, key);
 }
+*/
 
 /*-------------------------------------------------------- */
 static bool_t tinyrl_escape_seq(tinyrl_t *this, const char *esc_seq)
@@ -616,7 +618,6 @@ static bool_t tinyrl_escape_seq(tinyrl_t *this, const char *esc_seq)
 	case tinyrl_vt100_PGDOWN:
 	case tinyrl_vt100_PGUP:
 	case tinyrl_vt100_UNKNOWN:
-		result = tinyrl_key_help(this, key);
 		break;
 	}
 
