@@ -20,6 +20,7 @@ struct _tinyrl {
 	tinyrl_completion_func_t *attempted_completion_function;
 	tinyrl_timeout_fn_t *timeout_fn; /* timeout callback */
 	tinyrl_keypress_fn_t *keypress_fn; /* keypress callback */
+	bool_t ins_flag; // Ins key changes mode of pressed keys
 	int state;
 #define RL_STATE_COMPLETING (0x00000001)
 	char *kill_string;

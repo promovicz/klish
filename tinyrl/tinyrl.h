@@ -225,7 +225,8 @@ extern int tinyrl__restore_history(tinyrl_t *instance, const char *fname);
 extern void tinyrl__stifle_history(tinyrl_t *instance, unsigned int stifle);
 extern void tinyrl_set_machine_interface(tinyrl_t *instance);
 extern void tinyrl_set_human_interface(tinyrl_t *instance);
-bool_t tinyrl_is_machine_interface(const tinyrl_t *instance);
+extern bool_t tinyrl_is_machine_interface(const tinyrl_t *instance);
+extern bool_t tinyrl_get_ins_flag(tinyrl_t *this);
 
 _END_C_DECL
 #endif				/* _tinyrl_tinyrl_h */

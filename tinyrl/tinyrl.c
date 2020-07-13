@@ -527,8 +527,46 @@ static bool_t tinyrl_key_erase_line(tinyrl_t * this, int key)
 
 	return BOOL_TRUE;
 }
-/*-------------------------------------------------------- */
 
+/*-------------------------------------------------------- */
+/* Toggle INSert flag. When INS flag is on then pressing "?" you will get
+ * the "?" itself. When INS flag is off then pressing "?" you will get help.
+ * On each interactive line the INS flag wil be reset. May be it will be used
+ * for another symbols (and hotkeys) later.
+ */
+static bool_t tinyrl_toggle_ins_flag(tinyrl_t *this)
+{
+	if (!this)
+		return BOOL_FALSE;
+
+	if (this->ins_flag)
+		this->ins_flag = BOOL_FALSE;
+	else
+		this->ins_flag = BOOL_TRUE;
+
+	return BOOL_TRUE;
+}
+
+/*-------------------------------------------------------- */
+static bool_t tinyrl_reset_ins_flag(tinyrl_t *this)
+{
+	if (!this)
+		return BOOL_FALSE;
+
+	this->ins_flag = BOOL_FALSE;
+	return BOOL_TRUE;
+}
+
+/*-------------------------------------------------------- */
+bool_t tinyrl_get_ins_flag(tinyrl_t *this)
+{
+	if (!this)
+		return BOOL_FALSE;
+
+	return this->ins_flag;
+}
+
+/*-------------------------------------------------------- */
 /* It's a dirty hack. The function to print help is external but we need
  * to show help on some escape sequences. So suppose raw help key is
  * Ctrl+_ (Control_underscore 0x1f KEY_US) execute external function for this
@@ -573,6 +611,8 @@ static bool_t tinyrl_escape_seq(tinyrl_t *this, const char *esc_seq)
 		result = tinyrl_key_delete(this,key);
 		break;
 	case tinyrl_vt100_INSERT:
+		result = tinyrl_toggle_ins_flag(this);
+		break;
 	case tinyrl_vt100_PGDOWN:
 	case tinyrl_vt100_PGUP:
 	case tinyrl_vt100_UNKNOWN:
@@ -671,6 +711,7 @@ static void tinyrl_init(tinyrl_t * this, FILE * istream, FILE * ostream,
 	this->last_line_size = 0;
 	this->utf8 = BOOL_FALSE;
 	this->machine_interface = BOOL_FALSE;
+	this->ins_flag = BOOL_FALSE;
 
 	/* create the vt100 terminal */
 	this->term = tinyrl_vt100_new(NULL, ostream);
@@ -899,6 +940,7 @@ static char *internal_readline(tinyrl_t * this,
 	this->buffer_size = strlen(this->buffer);
 	this->line = this->buffer;
 	this->context = context;
+	tinyrl_reset_ins_flag(this);
 
 	/* Interactive session */
 	if (tinyrl__get_isatty(this) && !str) {
