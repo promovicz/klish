@@ -2,6 +2,7 @@
  * sym_navy.c
  */
 #include "private.h"
+#include "lub/ctype.h"
 #include "lub/string.h"
 #include "lub/argv.h"
 #include "lub/conv.h"
@@ -251,6 +252,8 @@ CLISH_PLUGIN_SYM(clish_human_interface)
  */
 CLISH_PLUGIN_SYM(clish_print_script)
 {
+	if (!script)
+		return 0;
 	printf("%s\n", script);
 
 	out = out; /* Happy compiler */
@@ -266,9 +269,28 @@ CLISH_PLUGIN_SYM(clish_print_script)
 CLISH_PLUGIN_SYM(clish_print_var)
 {
 	char *str = NULL;
+	char *copy = NULL;
+	char *varname = NULL;
+	char *t = NULL;
 
 	// Script contains variable name
-	str = clish_shell_expand_var(script, clish_context);
+	if (!script)
+		return 0;
+
+	// Remove all spaces from var name
+	copy = lub_string_dup(script);
+	varname = copy;
+	while (*varname && lub_ctype_isspace(*varname))
+		varname++;
+	t = varname;
+	while (*t && !lub_ctype_isspace(*t))
+		t++;
+	*t = '\0';
+
+	str = clish_shell_expand_var(varname, clish_context);
+	lub_string_free(copy);
+	if (!str)
+		return 0;
 	printf("%s\n", str);
 	lub_string_free(str);
 
