@@ -222,7 +222,7 @@ static const char *method_names[] = {
 };
 
 /*--------------------------------------------------------- */
-const char *clish_ptype__get_method_name(clish_ptype_method_e method)
+const char *clish_ptype_method__get_name(clish_ptype_method_e method)
 {
 	if (method >= CLISH_PTYPE_METHOD_MAX)
 		return NULL;
@@ -252,7 +252,7 @@ static const char *preprocess_names[] = {
 };
 
 /*--------------------------------------------------------- */
-const char *clish_ptype__get_preprocess_name(clish_ptype_preprocess_e preprocess)
+const char *clish_ptype_preprocess__get_name(clish_ptype_preprocess_e preprocess)
 {
 	if (preprocess >= CLISH_PTYPE_PRE_MAX)
 		return NULL;

@@ -99,4 +99,12 @@ _CLISH_GET(ptype, clish_ptype_method_e, method);
 void clish_ptype__set_pattern(clish_ptype_t * instance,
 	const char *pattern, clish_ptype_method_e method);
 
+const char *clish_ptype_method__get_name(clish_ptype_method_e
+	method);
+clish_ptype_method_e clish_ptype_method_resolve(const char *name);
+
+const char *clish_ptype_preprocess__get_name(clish_ptype_preprocess_e
+	preprocess);
+clish_ptype_preprocess_e clish_ptype_preprocess_resolve(const char *name);
+
 #endif	/* _clish_ptype_h */
