@@ -84,7 +84,7 @@ AC_ARG_ENABLE(legacy,
               [AS_HELP_STRING([--enable-legacy],
                               [Turn on legacy klish-2 features [default=no]])],
               [],
-              [enable_debug=no])
+              [enable_legacy=no])
 AM_CONDITIONAL(LEGACY,test x$enable_legacy = xyes)
 
 ################################
