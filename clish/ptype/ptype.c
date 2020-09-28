@@ -461,9 +461,11 @@ CLISH_SET_STR_ONCE(ptype, text);
 CLISH_GET_STR(ptype, text);
 CLISH_SET_STR_ONCE(ptype, completion);
 CLISH_GET_STR(ptype, completion);
+CLISH_GET(ptype, clish_ptype_preprocess_e, preprocess);
 CLISH_SET_ONCE(ptype, clish_ptype_preprocess_e, preprocess);
 CLISH_GET_STR(ptype, range);
 CLISH_GET(ptype, clish_action_t *, action);
+CLISH_GET_STR(ptype, pattern);
 CLISH_GET(ptype, clish_ptype_method_e, method);
 
 /*--------------------------------------------------------- */
