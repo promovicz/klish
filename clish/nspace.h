@@ -43,6 +43,8 @@ _CLISH_SET(nspace, bool_t, inherit);
 _CLISH_GET(nspace, bool_t, inherit);
 _CLISH_SET(nspace, clish_view_t *, view);
 _CLISH_GET(nspace, clish_view_t *, view);
+_CLISH_SET(nspace, clish_view_t *, pview);
+_CLISH_GET(nspace, clish_view_t *, pview);
 _CLISH_SET_STR(nspace, view_name);
 _CLISH_GET_STR(nspace, view_name);
 _CLISH_SET_STR(nspace, access);

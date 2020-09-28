@@ -279,6 +279,7 @@ const clish_command_t *clish_view_find_next_completion(clish_view_t * this,
 void clish_view_insert_nspace(clish_view_t * this, clish_nspace_t * nspace)
 {
 	lub_list_add(this->nspaces, nspace);
+	clish_nspace__set_pview(nspace, this);
 }
 
 /*--------------------------------------------------------- */
