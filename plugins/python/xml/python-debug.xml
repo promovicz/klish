@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CLISH_MODULE xmlns="http://clish.sourceforge.net/XMLSchema"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://clish.sourceforge.net/XMLSchema
+                     http://clish.sourceforge.net/XMLSchema/clish.xsd">
+
+	<!-- Parameter types -->
+
+	<PTYPE name="python_line"
+               pattern="[[:print:]]*"
+               help="[python code]"/>
+
+	<PTYPE name="python_repl_type"
+	       help="Interpreter type"
+	       method="select"
+	       pattern="default bpython ipython"/>
+
+	<!-- Base commands -->
+
+	<COMMAND name="python"
+		 help="Python interpreter"/>
+
+	<COMMAND name="python show"
+		 help="Display python information"/>
+
+	<!-- Evaluation -->
+
+	<COMMAND name="python execute"
+		 help="Execute a python statement">
+		<PARAM name="code"
+		       ptype="python_line"
+		       help="Code"/>
+		<ACTION builtin="python">
+exec(params['code'])
+		</ACTION>
+	</COMMAND>
+
+	<!-- Informational commands -->
+
+	<COMMAND name="python show copyright"
+		 help="Display python copyright information">
+		<ACTION builtin="python">
+import sys
+print("Python " + sys.version + "\n")
+print(copyright)
+		</ACTION>
+	</COMMAND>
+
+	<COMMAND name="python show globals"
+		 help="Display python globals">
+		<ACTION builtin="python">
+print(globals())
+		</ACTION>
+	</COMMAND>
+
+	<COMMAND name="python show locals"
+		 help="Display python locals">
+		<ACTION builtin="python">
+print(locals())
+		</ACTION>
+	</COMMAND>
+
+	<COMMAND name="python show version"
+		 help="Display python version">
+		<ACTION builtin="python">
+import sys
+print("Python " + sys.version)
+		</ACTION>
+	</COMMAND>
+
+	<!-- Access to debugger -->
+
+	<COMMAND name="python debug"
+		 help="Debug python statement">
+		<PARAM name="code"
+		       ptype="python_line"
+		       help="Expression"
+		       default="built-in"/>
+		<ACTION builtin="python">
+import pdb
+pdb.run(params['code'])
+		</ACTION>
+	</COMMAND>
+
+	<!-- Access to REPL -->
+
+	<COMMAND name="python repl"
+		 help="Run a python REPL">
+		<PARAM name="type"
+		       ptype="python_repl_type"
+		       help="Interpreter"
+		       default="built-in"
+		       optional="true"/>
+		<ACTION builtin="python">
+if params['type'] == 'ipython':
+	import sys
+	import IPython
+	if len(sys.argv) == 0:
+		# IPython 5.8.0 can't cope without this
+		sys.argv = ['clish']
+	IPython.embed()
+elif params['type'] == 'bpython':
+	import bpython
+	bpython.embed(locals_=locals())
+else:
+	import code
+	code.InteractiveConsole(locals=locals()).interact()
+		</ACTION>
+	</COMMAND>
+
+</CLISH_MODULE>

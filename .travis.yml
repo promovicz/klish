@@ -31,13 +31,13 @@ script:
   #- make check
   #- make install
   # full-featured release build
-  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes
+  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes --enable-python --enable-python3
   - make clean
   - make
   - make check
   - make install
   # full-featured debug build
-  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes --enable-debug
+  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes --enable-python --enable-python3 --enable-debug
   - make clean
   - make
   - make check
@@ -52,4 +52,8 @@ addons:
       - libxslt1-dev
       - lua5.1
       - liblua5.1-dev
+      - python
+      - python-dev
+      - python3
+      - python3-dev
       - libxml2-utils

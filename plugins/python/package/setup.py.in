@@ -1,0 +1,31 @@
+
+from distutils.core import setup, Extension
+
+import sys
+
+if sys.version_info[0] < 3:
+	clish_python_library = 'clish_python'
+	clish_python_defines = [('PYTHON2', 1)]
+else:
+	clish_python_library = 'clish_python3'
+	clish_python_defines = [('PYTHON3', 1)]
+
+clish_python = Extension ('clish',
+			  sources = ['extension.c'],
+			  define_macros = clish_python_defines,
+			  extra_link_args = ['-Xlinker', '-rpath=@prefix@/lib'],
+			  libraries= ['lub', 'clish', 'konf',
+				      clish_python_library],
+			  library_dirs = ['@abs_top_builddir@', '@prefix@/lib'],
+			  include_dirs = ['@abs_top_builddir@', '@prefix@/include'],
+)
+
+setup (name='clish',
+       version='@PACKAGE_VERSION@',
+       description='Python bindings for clish',
+       license='BSD-3-Clause',
+       maintainer='clish maintainers',
+       maintainer_email='clish@example.org',
+       url='http://example.org/clish/',
+       ext_modules=[clish_python],
+)

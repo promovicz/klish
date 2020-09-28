@@ -1,0 +1,7 @@
+{
+	global:
+		clish_plugin_python_init;
+		clish_plugin_python_fini;
+		clish_plugin_python_action_python;
+	local: *;
+};

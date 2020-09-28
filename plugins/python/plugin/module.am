@@ -1,0 +1,51 @@
+
+clish_python_plugin_dependencies = \
+	liblub.la \
+	libclish.la \
+	libkonf.la
+
+clish_python_plugin_sources = \
+	plugins/python/plugin/plugin_init.c \
+	plugins/python/plugin/plugin_fini.c \
+	plugins/python/plugin/action_python.c \
+	plugins/python/plugin/private.h
+
+EXTRA_DIST += \
+	plugins/python/plugin/symbols.map \
+	plugins/python/plugin/version.map
+
+# clish_plugin_python - clish plugin for python 2
+if ENABLE_PYTHON2
+lib_LTLIBRARIES += clish_plugin_python.la
+
+clish_plugin_python_la_SOURCES = $(clish_python_plugin_sources)
+clish_plugin_python_la_DEPENDENCIES = $(clish_python_plugin_dependencies) libclish_python.la
+clish_plugin_python_la_LIBADD = $(clish_python_plugin_dependencies) libclish_python.la
+
+clish_plugin_python_la_CPPFLAGS = $(AM_CPPFLAGS) @PYTHON2_CFLAGS@ -DPYTHON2
+
+clish_plugin_python_la_LDFLAGS = -avoid-version -module @PYTHON2_LDFLAGS@
+if HAVE_LD_VERSION_SCRIPT
+clish_plugin_python_la_LDFLAGS += -Wl,--version-script=plugins/python/plugin/version.map
+else
+clish_plugin_python_la_LDFLAGS += -export-symbols plugins/python/plugin/symbols.map
+endif
+endif
+
+# clish_plugin_python3 - clish plugin for python 3
+if ENABLE_PYTHON3
+lib_LTLIBRARIES += clish_plugin_python3.la
+
+clish_plugin_python3_la_SOURCES = $(clish_python_plugin_sources)
+clish_plugin_python3_la_DEPENDENCIES = $(clish_python_plugin_dependencies) libclish_python3.la
+clish_plugin_python3_la_LIBADD = $(clish_python_plugin_dependencies) libclish_python3.la
+
+clish_plugin_python3_la_CPPFLAGS = $(AM_CPPFLAGS) @PYTHON3_CFLAGS@ -DPYTHON3
+
+clish_plugin_python3_la_LDFLAGS = -avoid-version -module @PYTHON3_LDFLAGS@
+if HAVE_LD_VERSION_SCRIPT
+clish_plugin_python3_la_LDFLAGS += -Wl,--version-script=plugins/python/plugin/version.map
+else
+clish_plugin_python3_la_LDFLAGS += -export-symbols plugins/python/plugin/symbols.map
+endif
+endif

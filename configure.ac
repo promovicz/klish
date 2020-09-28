@@ -115,6 +115,69 @@ if test x$use_lua != xno; then
 fi
 
 ################################
+# Check for Python support
+################################
+
+AC_MSG_CHECKING(whether to build python2 support)
+AC_ARG_ENABLE(python2,
+              AC_HELP_STRING([--enable-python2], [build python2 support]),
+              enable_python2=$enableval, enable_python2=no)
+AC_MSG_RESULT($enable_python2)
+AM_CONDITIONAL(ENABLE_PYTHON2,test x$enable_python2 != xno)
+
+AC_MSG_CHECKING(whether to build python3 support)
+AC_ARG_ENABLE(python3,
+              AC_HELP_STRING([--enable-python3], [build python3 support]),
+              enable_python3=$enableval, enable_python3=no)
+AC_MSG_RESULT($enable_python3)
+AM_CONDITIONAL(ENABLE_PYTHON3,test x$enable_python3 != xno)
+
+if test "$enable_python2" = yes; then
+        unset PYTHON PYTHON_CONFIG
+        unset am_cv_pathless_PYTHON ac_cv_path_PYTHON am_cv_python_platform
+        unset am_cv_python_pythondir am_cv_python_version am_cv_python_pyexecdir
+        unset ac_cv_path_PYTHON_CONFIG ac_cv_path_ac_pt_PYTHON_CONFIG
+        AM_PATH_PYTHON([2])
+        PYTHON2=$PYTHON
+        test -z "$PYTHON2" && AC_MSG_ERROR([python2 is required for --enable-python2 but cannot be found])
+        AC_PATH_TOOL(PYTHON2_CONFIG, python-config)
+        test -z "$PYTHON2_CONFIG" && AC_PATH_TOOL(PYTHON2_CONFIG, python2-config)
+        test -z "$PYTHON2_CONFIG" && AC_MSG_ERROR([python2 headers are required for --enable-python2 but cannot be found])
+        PYTHON2_CFLAGS=`"$PYTHON2_CONFIG" --cflags`
+        PYTHON2_LDFLAGS=`"$PYTHON2_CONFIG" --ldflags`
+        PYTHON2_DIR=$pythondir
+        AC_SUBST(PYTHON2)
+        AC_SUBST(PYTHON2_CFLAGS)
+        AC_SUBST(PYTHON2_LDFLAGS)
+        enable_python=yes
+fi
+
+if test "$enable_python3" = yes; then
+        unset PYTHON PYTHON_CONFIG
+        unset am_cv_pathless_PYTHON ac_cv_path_PYTHON am_cv_python_platform
+        unset am_cv_python_pythondir am_cv_python_version am_cv_python_pyexecdir
+        unset ac_cv_path_PYTHON_CONFIG ac_cv_path_ac_pt_PYTHON_CONFIG
+        AM_PATH_PYTHON([3])
+        PYTHON3=$PYTHON
+        test -z "$PYTHON3" && AC_MSG_ERROR([python3 is required for --enable-python3 but cannot be found])
+        AC_PATH_TOOL(PYTHON3_CONFIG, python3-config)
+        test -z "$PYTHON3_CONFIG" && AC_MSG_ERROR([python3 headers are required for --enable-python3 but cannot be found])
+        PYTHON3_CFLAGS=`"$PYTHON3_CONFIG" --cflags`
+        PYTHON3_LDFLAGS=`"$PYTHON3_CONFIG" --ldflags`
+        PYTHON3_DIR=$pythondir
+        AC_SUBST(PYTHON3)
+        AC_SUBST(PYTHON3_CFLAGS)
+        AC_SUBST(PYTHON3_LDFLAGS)
+        enable_python=yes
+fi
+
+AM_CONDITIONAL(ENABLE_PYTHON,test x$enable_python == xyes)
+
+if test "$enable_python" = yes; then
+        AC_CONFIG_FILES([plugins/python/package/setup.py])
+fi
+
+################################
 # Check for the roxml library
 ################################
 AC_ARG_WITH(libroxml,

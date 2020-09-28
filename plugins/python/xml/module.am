@@ -1,0 +1,7 @@
+
+if HAVE_XMLLINT
+check-local: check-local-plugins-python-xml
+
+check-local-plugins-python-xml:
+	$(XMLLINT) --nonet --noout --schema clish.xsd plugins/python/xml/*.xml
+endif

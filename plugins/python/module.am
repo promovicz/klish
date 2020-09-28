@@ -1,0 +1,11 @@
+
+EXTRA_DIST += \
+	plugins/python/binding/module.am \
+	plugins/python/package/module.am \
+	plugins/python/plugin/module.am \
+	plugins/python/xml/module.am
+
+include $(top_srcdir)/plugins/python/binding/module.am
+include $(top_srcdir)/plugins/python/package/module.am
+include $(top_srcdir)/plugins/python/plugin/module.am
+include $(top_srcdir)/plugins/python/xml/module.am

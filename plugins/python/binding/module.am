@@ -1,0 +1,45 @@
+
+clish_python_binding_dependencies = \
+	liblub.la \
+	libclish.la \
+	libkonf.la
+
+clish_python_binding_sources = \
+	plugins/python/binding/clish_python.c \
+	plugins/python/binding/clish_python.h \
+	plugins/python/binding/type_action.c \
+	plugins/python/binding/type_command.c \
+	plugins/python/binding/type_context.c \
+	plugins/python/binding/type_param.c \
+	plugins/python/binding/type_paramv.c \
+	plugins/python/binding/type_pargv.c \
+	plugins/python/binding/type_ptype.c \
+	plugins/python/binding/type_shell.c \
+	plugins/python/binding/type_sym.c \
+	plugins/python/binding/type_var.c \
+	plugins/python/binding/type_vars.c \
+	plugins/python/binding/type_view.c
+
+# libclish_python - clish binding for python 2
+if ENABLE_PYTHON2
+lib_LTLIBRARIES += libclish_python.la
+
+libclish_python_la_SOURCES = $(clish_python_binding_sources)
+libclish_python_la_DEPENDENCIES = $(clish_python_binding_dependencies)
+libclish_python_la_LIBADD = $(clish_python_binding_dependencies)
+
+libclish_python_la_CPPFLAGS = $(AM_CPPFLAGS) @PYTHON2_CFLAGS@ -DPYTHON2
+libclish_python_la_LDFLAGS = $(VERSION_INFO) @PYTHON2_LDFLAGS@
+endif
+
+# libclish_python3 - clish binding for python 3
+if ENABLE_PYTHON3
+lib_LTLIBRARIES += libclish_python3.la
+
+libclish_python3_la_SOURCES = $(clish_python_binding_sources)
+libclish_python3_la_DEPENDENCIES = $(clish_python_binding_dependencies)
+libclish_python3_la_LIBADD = $(clish_python_binding_dependencies)
+
+libclish_python3_la_CPPFLAGS = $(AM_CPPFLAGS) @PYTHON3_CFLAGS@ -DPYTHON3
+libclish_python3_la_LDFLAGS = $(VERSION_INFO) @PYTHON3_LDFLAGS@
+endif

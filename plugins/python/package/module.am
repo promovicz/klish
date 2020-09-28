@@ -1,0 +1,24 @@
+
+# cleanup rule for setuptools build
+clean-local: clean-local-python-package
+
+clean-local-python-package:
+	rm -rf @abs_top_builddir@/plugins/python/build
+
+# setuptools hook for python 2
+if ENABLE_PYTHON2
+install-exec-local: install-exec-local-python2-package
+
+install-exec-local-python2-package:
+	cd @abs_top_builddir@/plugins/python/package && @PYTHON2@ setup.py build
+	cd @abs_top_builddir@/plugins/python/package && @PYTHON2@ setup.py install --skip-build --prefix @prefix@
+endif
+
+# setuptools hook for python 3
+if ENABLE_PYTHON3
+install-exec-local: install-exec-local-python3-package
+
+install-exec-local-python3-package:
+	cd @abs_top_builddir@/plugins/python/package && @PYTHON3@ setup.py build
+	cd @abs_top_builddir@/plugins/python/package && @PYTHON3@ setup.py install --skip-build --prefix @prefix@
+endif

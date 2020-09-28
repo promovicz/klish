@@ -24,6 +24,7 @@
 /aclocal.m4
 /Makefile.in
 /clish/plugin_builtin.c
+/plugins/python/package/setup.py
 /*.patch
 
 # Debian files
