@@ -164,14 +164,6 @@ void clish_command_insert_param(clish_command_t * this, clish_param_t * param)
 }
 
 /*--------------------------------------------------------- */
-int clish_command_help(const clish_command_t *this)
-{
-	this = this; /* Happy compiler */
-
-	return 0;
-}
-
-/*--------------------------------------------------------- */
 clish_command_t *clish_command_choose_longest(clish_command_t * cmd1,
 	clish_command_t * cmd2)
 {
