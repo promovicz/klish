@@ -28,6 +28,8 @@ clish_pargv_t *clish_pargv_new(void);
 void clish_pargv_delete(clish_pargv_t * instance);
 const clish_parg_t *clish_pargv_find_arg(clish_pargv_t * instance,
 	const char *name);
+const char *clish_pargv_find_value(clish_pargv_t * instance,
+	const char *name);
 int clish_pargv_insert(clish_pargv_t * instance,
 	const clish_param_t * param, const char *value);
 clish_pargv_t *clish_pargv_clone(const clish_pargv_t *src);

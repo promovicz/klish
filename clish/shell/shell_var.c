@@ -511,9 +511,7 @@ char *clish_shell_expand_var_ex(const char *name, clish_context_t *context, clis
 
 	/* try and substitute a parameter value */
 	if (pargv && (flags & SHELL_EXPAND_PARAM)) {
-		const clish_parg_t *parg = clish_pargv_find_arg(pargv, name);
-		if (parg)
-			tmp = clish_parg__get_value(parg);
+		tmp = clish_pargv_find_value(pargv, name);
 	}
 
 	/* try and substitute the param's default */

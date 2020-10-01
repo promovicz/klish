@@ -161,3 +161,13 @@ const clish_parg_t *clish_pargv_find_arg(clish_pargv_t * this, const char *name)
 }
 
 /*--------------------------------------------------------- */
+const char *clish_pargv_find_value(clish_pargv_t * this, const char *name)
+{
+	clish_parg_t *parg;
+	if (!this)
+		return NULL;
+	parg = find_parg(this, name);
+	if (!parg)
+		return NULL;
+	return clish_parg__get_value(parg);
+}
