@@ -7,6 +7,7 @@ liblub_la_LDFLAGS = $(AM_LDFLAGS) $(VERSION_INFO)
 nobase_include_HEADERS += \
     lub/argv.h \
     lub/bintree.h \
+    lub/error.h \
     lub/list.h \
     lub/ctype.h \
     lub/c_decl.h \
@@ -22,6 +23,7 @@ nobase_include_HEADERS += \
 EXTRA_DIST +=   \
     lub/argv/module.am \
     lub/bintree/module.am \
+    lub/error/module.am \
     lub/list/module.am \
     lub/ctype/module.am \
     lub/dump/module.am \
@@ -36,6 +38,7 @@ EXTRA_DIST +=   \
 
 include $(top_srcdir)/lub/argv/module.am
 include $(top_srcdir)/lub/bintree/module.am
+include $(top_srcdir)/lub/error/module.am
 include $(top_srcdir)/lub/list/module.am
 include $(top_srcdir)/lub/ctype/module.am
 include $(top_srcdir)/lub/dump/module.am
