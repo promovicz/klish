@@ -174,9 +174,12 @@ clish_command_t *clish_command_choose_longest(clish_command_t * cmd1,
 		return cmd1;
 	} else if (len1 < len2) {
 		return cmd2;
-	} else {
-		/* let local view override */
+	} else if (cmd1) {
+		/* priority to the first one */
 		return cmd1;
+	} else {
+		/* else use the second one */
+		return cmd2;
 	}
 }
 
