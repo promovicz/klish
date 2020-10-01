@@ -119,7 +119,6 @@ int clish_shell_push_file(clish_shell_t * instance, const char * fname,
 	bool_t stop_on_error);
 int clish_shell_push_fd(clish_shell_t * instance, FILE * file,
 	bool_t stop_on_error);
-void clish_shell_insert_var(clish_shell_t *instance, clish_var_t *var);
 clish_var_t *clish_shell_find_var(clish_shell_t *instance, const char *name);
 char *clish_shell_expand_var(const char *name, clish_context_t *context);
 char *clish_shell_expand_var_ex(const char *name, clish_context_t *context, clish_shell_expand_e flags);
