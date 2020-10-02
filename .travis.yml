@@ -1,0 +1,48 @@
+# Travis configuration for klish
+#
+# This ensures that contributors test all relevant configs
+# when working with branches on GitHub with Travis enabled.
+#
+
+language: c
+
+sudo: false
+
+os:
+  - linux
+
+compiler:
+  - gcc
+  - clang
+
+script:
+  # run autogen once
+  - ./autogen.sh
+  # build using expat
+  - ./configure --prefix=/tmp/local --with-libexpat=yes
+  - make clean
+  - make
+  - make install
+  # build using roxml (not available)
+  #- ./configure --prefix=/tmp/local --with-roxml=yes
+  #- make clean
+  #- make
+  #- make install
+  # full-featured release build
+  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes
+  - make clean
+  - make
+  - make install
+  # full-featured debug build
+  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --enable-debug
+  - make clean
+  - make
+  - make install
+
+addons:
+  apt:
+    packages:
+      - libc6-dev
+      - libexpat1-dev
+      - libxml2-dev
+      - libxslt1-dev
