@@ -77,7 +77,7 @@ int clish_shell_load_plugins(clish_shell_t *this)
 		if (clish_plugin_load(plugin))
 			return -1;
 #ifdef DEBUG
-		clish_plugin_dump(plugin);
+		//clish_plugin_dump(plugin);
 #endif
 	}
 
