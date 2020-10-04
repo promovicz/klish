@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CLISH_MODULE xmlns="http://clish.sourceforge.net/XMLSchema"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://clish.sourceforge.net/XMLSchema
+                     http://clish.sourceforge.net/XMLSchema/clish.xsd">
+
+	<PTYPE name="sqlite_line"
+               pattern="[[:print:]]*"
+               help="[sqlite code]"/>
+
+	<COMMAND name="sqlite"
+		 help="SQLite database"/>
+
+	<COMMAND name="sqlite show"
+		 help="Display sqlite information"/>
+
+	<COMMAND name="sqlite show database"
+		 help="Display sqlite database information"/>
+
+	<COMMAND name="sqlite show version"
+		 help="Display sqlite version"/>
+
+	<COMMAND name="sqlite open"
+		 help="Open sqlite database">
+	</COMMAND>
+
+	<COMMAND name="sqlite close"
+		 help="Close sqlite database">
+	</COMMAND>
+
+	<COMMAND name="sqlite execute"
+		 help="Execute SQL">
+		<PARAM name="code"
+		       ptype="sqlite_line"
+		       help="Code"/>
+		<ACTION builtin="sqlite"/>
+	</COMMAND>
+
+</CLISH_MODULE>

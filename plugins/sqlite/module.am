@@ -1,0 +1,36 @@
+if ENABLE_SQLITE
+lib_LTLIBRARIES += clish_plugin_sqlite.la
+endif
+
+clish_plugin_sqlite_la_SOURCES =
+clish_plugin_sqlite_la_LIBADD = @SQLITE3_LDFLAGS@
+clish_plugin_sqlite_la_LDFLAGS = -avoid-version -module
+if HAVE_LD_VERSION_SCRIPT
+clish_plugin_sqlite_la_LDFLAGS += -Wl,--version-script=plugins/sqlite/version.map
+else
+clish_plugin_sqlite_la_LDFLAGS += -export-symbols plugins/sqlite/symbols.map
+endif
+
+clish_plugin_sqlite_la_CPPFLAGS = $(AM_CPPFLAGS) @SQLITE3_CFLAGS@
+
+clish_plugin_sqlite_la_LIBADD += \
+	liblub.la \
+	libclish.la \
+	libkonf.la
+
+clish_plugin_sqlite_la_DEPENDENCIES = \
+	liblub.la \
+	libclish.la \
+	libkonf.la
+
+clish_plugin_sqlite_la_SOURCES += \
+	plugins/sqlite/action_sqlite.c \
+	plugins/sqlite/action_sqlite_close.c \
+	plugins/sqlite/action_sqlite_open.c \
+	plugins/sqlite/plugin_init.c \
+	plugins/sqlite/plugin_fini.c \
+	plugins/sqlite/private.h
+
+EXTRA_DIST += \
+	plugins/sqlite/symbols.map \
+	plugins/sqlite/version.map

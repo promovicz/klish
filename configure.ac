@@ -178,6 +178,21 @@ if test "$enable_python" = yes; then
 fi
 
 ################################
+# Check for sqlite support
+################################
+
+AC_MSG_CHECKING(whether to build sqlite support)
+AC_ARG_ENABLE(sqlite,
+              AC_HELP_STRING([--enable-sqlite], [build sqlite support]),
+              enable_sqlite=$enableval, enable_sqlite=no)
+AC_MSG_RESULT($enable_sqlite)
+AM_CONDITIONAL(ENABLE_SQLITE,test x$enable_sqlite != xno)
+
+if test $enable_sqlite = yes; then
+   AX_LIB_SQLITE3()
+fi
+
+################################
 # Check for the roxml library
 ################################
 AC_ARG_WITH(libroxml,

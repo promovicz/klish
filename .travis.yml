@@ -31,13 +31,13 @@ script:
   #- make check
   #- make install
   # full-featured release build
-  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes --enable-python --enable-python3
+  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes --enable-python --enable-python3 --enable-sqlite
   - make clean
   - make
   - make check
   - make install
   # full-featured debug build
-  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes --enable-python --enable-python3 --enable-debug
+  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes --enable-python --enable-python3 --enable-sqlite --enable-debug
   - make clean
   - make
   - make check
@@ -48,6 +48,7 @@ addons:
     packages:
       - libc6-dev
       - libexpat1-dev
+      - libsqlite3-dev
       - libxml2-dev
       - libxslt1-dev
       - lua5.1
@@ -56,4 +57,5 @@ addons:
       - python-dev
       - python3
       - python3-dev
+      - sqlite3
       - libxml2-utils

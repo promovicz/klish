@@ -1,0 +1,9 @@
+{
+	global:
+		clish_plugin_sqlite_init;
+		clish_plugin_sqlite_fini;
+		clish_plugin_sqlite_action_sqlite;
+		clish_plugin_sqlite_action_sqlite_close;
+		clish_plugin_sqlite_action_sqlite_open;
+	local: *;
+};

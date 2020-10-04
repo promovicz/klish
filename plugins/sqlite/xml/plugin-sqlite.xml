@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CLISH_MODULE xmlns="http://clish.sourceforge.net/XMLSchema"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://clish.sourceforge.net/XMLSchema
+                     http://clish.sourceforge.net/XMLSchema/clish.xsd">
+
+  <!--
+    SQLite plugin
+
+    This plugin integrates the SQLite database with clish.
+
+  -->
+  <PLUGIN name="sqlite" file="clish_plugin_sqlite.so">
+  </PLUGIN>
+
+</CLISH_MODULE>
