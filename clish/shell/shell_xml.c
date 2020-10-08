@@ -320,14 +320,14 @@ static int process_clish_module(clish_shell_t *shell, clish_xmlnode_t *element,
 static int process_view(clish_shell_t *shell, clish_xmlnode_t *element,
 	void *parent)
 {
-	clish_view_t *view;
-	clish_view_restore_e restore;
+	clish_view_t *view = NULL;
+	clish_view_restore_e restore_e = CLISH_RESTORE_NONE;
 	int res = -1;
 
 	char *name = clish_xmlnode_fetch_attr(element, "name");
 	char *prompt = clish_xmlnode_fetch_attr(element, "prompt");
 	char *depth = clish_xmlnode_fetch_attr(element, "depth");
-	char *restore_name = clish_xmlnode_fetch_attr(element, "restore");
+	char *restore = clish_xmlnode_fetch_attr(element, "restore");
 	char *access = clish_xmlnode_fetch_attr(element, "access");
 
 	/* Check syntax */
@@ -348,9 +348,9 @@ static int process_view(clish_shell_t *shell, clish_xmlnode_t *element,
 		clish_view__set_depth(view, res);
 	}
 
-	if (restore_name) {
-		restore = clish_view_restore_resolve(restore_name);
-		clish_view__set_restore(view, restore);
+	if (restore) {
+		restore_e = clish_view_restore_resolve(restore);
+		clish_view__set_restore(view, restore_e);
 	}
 
 	if (access)
@@ -362,7 +362,7 @@ error:
 	clish_xml_release(name);
 	clish_xml_release(prompt);
 	clish_xml_release(depth);
-	clish_xml_release(restore_name);
+	clish_xml_release(restore);
 	clish_xml_release(access);
 
 	parent = parent; /* Happy compiler */

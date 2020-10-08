@@ -21,7 +21,8 @@ typedef struct clish_view_s clish_view_t;
 typedef enum {
 	CLISH_RESTORE_NONE,
 	CLISH_RESTORE_DEPTH,
-	CLISH_RESTORE_VIEW
+	CLISH_RESTORE_VIEW,
+	CLISH_RESTORE_MAX
 } clish_view_restore_e;
 
 #include "lub/list.h"

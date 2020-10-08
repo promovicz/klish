@@ -332,10 +332,9 @@ static const char *restore_names[] = {
 /*--------------------------------------------------------- */
 const char *clish_view_restore__get_name(clish_view_restore_e restore)
 {
-	unsigned int max_restore = sizeof(restore_names) / sizeof(char *);
-
-	if (restore >= max_restore)
+	if (restore >= CLISH_RESTORE_MAX)
 		return NULL;
+
 	return restore_names[restore];
 }
 
@@ -343,17 +342,17 @@ const char *clish_view_restore__get_name(clish_view_restore_e restore)
 clish_view_restore_e clish_view_restore_resolve(const char *name)
 {
 	clish_view_restore_e result = CLISH_RESTORE_NONE;
-	if (NULL != name) {
-		unsigned i;
-		for (i = 0; i < CLISH_RESTORE_VIEW + 1; i++) {
-			if (0 == strcmp(name, restore_names[i])) {
-				result = (clish_view_restore_e) i;
-				break;
-			}
+	unsigned int i = 0;
+
+	if (!name)
+		return CLISH_RESTORE_NONE;
+
+	for (i = 0; i < CLISH_RESTORE_MAX; i++) {
+		if (0 == strcmp(name, restore_names[i])) {
+			result = (clish_view_restore_e)i;
+			break;
 		}
-		/* error for incorrect type spec */
-		assert(i <= CLISH_RESTORE_VIEW);
 	}
+
 	return result;
 }
-
