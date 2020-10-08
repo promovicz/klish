@@ -2,6 +2,7 @@
 lib_LTLIBRARIES         += liblub.la
 liblub_la_SOURCES        =
 liblub_la_LIBADD         =
+liblub_la_LDFLAGS = $(AM_LDFLAGS) $(VERSION_INFO)
 
 nobase_include_HEADERS += \
     lub/argv.h \
