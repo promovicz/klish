@@ -541,3 +541,5 @@ char *clish_shell_expand_var_ex(const char *name, clish_context_t *context, clis
 }
 
 /*----------------------------------------------------------- */
+CLISH_SET(shell, bool_t, default_expand);
+CLISH_GET(shell, bool_t, default_expand);

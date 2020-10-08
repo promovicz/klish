@@ -78,6 +78,8 @@ _CLISH_SET(sym, const void *, func);
 _CLISH_GET(sym, const void *, func);
 _CLISH_SET(sym, bool_t, permanent);
 _CLISH_GET(sym, bool_t, permanent);
+_CLISH_SET(sym, tri_t, expand);
+_CLISH_GET(sym, tri_t, expand);
 _CLISH_SET_STR(sym, name);
 _CLISH_GET_STR(sym, name);
 _CLISH_SET(sym, clish_plugin_t *, plugin);

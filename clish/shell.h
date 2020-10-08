@@ -54,6 +54,7 @@ void clish_context__set_pargv(void *instance, clish_pargv_t *pargv);
 clish_pargv_t *clish_context__get_pargv(const void *instance);
 void clish_context__set_action(void *instance, const clish_action_t *action);
 const clish_action_t *clish_context__get_action(const void *instance);
+bool_t clish_context__get_expand(const clish_context_t *context);
 _END_C_DECL
 
 /* Shell */
@@ -136,6 +137,8 @@ _CLISH_SET_STR(shell, lockfile);
 _CLISH_GET_STR(shell, lockfile);
 _CLISH_SET_STR(shell, default_shebang);
 _CLISH_GET_STR(shell, default_shebang);
+_CLISH_SET(shell, bool_t, default_expand);
+_CLISH_GET(shell, bool_t, default_expand);
 _CLISH_SET(shell, unsigned int, idle_timeout);
 _CLISH_SET(shell, unsigned int, wdog_timeout);
 _CLISH_GET(shell, unsigned int, wdog_timeout);

@@ -15,6 +15,7 @@ struct clish_sym_s {
 	int type; /* Function type */
 	clish_sym_api_e api; /* Function API */
 	bool_t permanent; /* If permanent the dry-run can't switch it off */
+	tri_t expand; /* If action scripts should be expanded */
 	clish_plugin_t *plugin; /* Parent plugin */
 };
 

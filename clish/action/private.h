@@ -12,4 +12,5 @@ struct clish_action_s {
 	bool_t interrupt;
 	bool_t interactive;
 	bool_t permanent; // if true then ACTION will be executed on dryrun
+	tri_t expand; // if true variables are expanded even if sym says not to
 };

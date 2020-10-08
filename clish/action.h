@@ -28,5 +28,7 @@ _CLISH_SET(action, bool_t, interactive);
 _CLISH_GET(action, bool_t, interactive);
 _CLISH_SET(action, bool_t, permanent);
 _CLISH_GET(action, bool_t, permanent);
+_CLISH_SET(action, tri_t, expand);
+_CLISH_GET(action, tri_t, expand);
 
 #endif // _clish_action_h

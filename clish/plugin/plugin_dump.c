@@ -40,6 +40,7 @@ void clish_sym_dump(const clish_sym_t *this)
 	}
 	lub_dump_printf("type      : %s\n", type);
 	lub_dump_printf("permanent : %s\n", LUB_DUMP_BOOL(this->permanent));
+	lub_dump_printf("expand    : %s\n", LUB_DUMP_TRI(this->expand));
 	lub_dump_printf("plugin    : %p\n", this->plugin);
 	lub_dump_undent();
 }

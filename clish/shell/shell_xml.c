@@ -614,6 +614,8 @@ static int process_startup(clish_shell_t *shell, clish_xmlnode_t *element,
 		"default_plugin");
 	char *default_shebang = clish_xmlnode_fetch_attr(element,
 		"default_shebang");
+	char *default_expand = clish_xmlnode_fetch_attr(element,
+		"default_expand");
 #ifdef LEGACY
 	char *lock = clish_xmlnode_fetch_attr(element, "lock");
 	char *interrupt = clish_xmlnode_fetch_attr(element, "interrupt");
@@ -644,6 +646,10 @@ static int process_startup(clish_shell_t *shell, clish_xmlnode_t *element,
 
 	if (default_shebang)
 		clish_shell__set_default_shebang(shell, default_shebang);
+
+	if (default_expand)
+		clish_shell__set_default_expand(shell,
+			(lub_string_nocasecmp(default_expand, "true") == 0));
 
 	if (timeout) {
 		unsigned int to = 0;
@@ -684,6 +690,7 @@ error:
 	clish_xml_release(viewid);
 	clish_xml_release(default_plugin);
 	clish_xml_release(default_shebang);
+	clish_xml_release(default_expand);
 	clish_xml_release(timeout);
 #ifdef LEGACY
 	clish_xml_release(lock);
@@ -881,6 +888,7 @@ static int process_action(clish_shell_t *shell, clish_xmlnode_t *element,
 	char *lock = clish_xmlnode_fetch_attr(element, "lock");
 	char *interrupt = clish_xmlnode_fetch_attr(element, "interrupt");
 	char *interactive = clish_xmlnode_fetch_attr(element, "interactive");
+	char *expand = clish_xmlnode_fetch_attr(element, "expand");
 
 	clish_xmlnode_t *pelement = clish_xmlnode_parent(element);
 	char *pname = clish_xmlnode_get_all_name(pelement);
@@ -924,11 +932,16 @@ static int process_action(clish_shell_t *shell, clish_xmlnode_t *element,
 	if (interrupt && lub_string_nocasecmp(interrupt, "true") == 0)
 		clish_action__set_interrupt(action, BOOL_TRUE);
 
+	/* expand */
+	if (expand)
+		clish_action__set_expand(action, lub_tri_from_string(expand));
+
 	clish_xml_release(builtin);
 	clish_xml_release(shebang);
 	clish_xml_release(lock);
 	clish_xml_release(interrupt);
 	clish_xml_release(interactive);
+	clish_xml_release(expand);
 
 	return 0;
 }

@@ -320,6 +320,7 @@ int clish_shell_exec_action(clish_context_t *context, char **out)
 {
 	int result = -1;
 	const clish_sym_t *sym;
+	const char *rscript;
 	char *script;
 	const void *func = NULL; /* We don't know the func API at this time */
 	const clish_action_t *action = clish_context__get_action(context);
@@ -340,7 +341,13 @@ int clish_shell_exec_action(clish_context_t *context, char **out)
 		fprintf(stderr, "Error: Default ACTION symbol is not specified.\n");
 		return -1;
 	}
-	script = clish_shell_expand(clish_action__get_script(action), SHELL_VAR_ACTION, context);
+
+	/* Expand variables, but only if the sym or action want it */
+	rscript = clish_action__get_script(action);
+	if(clish_context__get_expand(context))
+		script = clish_shell_expand(rscript, SHELL_VAR_ACTION, context);
+	else
+		script = lub_string_dup(rscript);
 
 	/* Ignore and block SIGINT, SIGQUIT, SIGHUP.
 	 * The SIG_IGN is not a case because it will be inherited

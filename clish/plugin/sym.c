@@ -38,6 +38,7 @@ clish_sym_t *clish_sym_new(const char *name, void *func, int type)
 	this->type = type;
 	this->api = CLISH_SYM_API_SIMPLE;
 	this->permanent = BOOL_FALSE;
+	this->expand = TRI_UNDEFINED;
 
 	return this;
 }
@@ -70,6 +71,8 @@ CLISH_SET(sym, const void *, func);
 CLISH_GET(sym, const void *, func);
 CLISH_SET(sym, bool_t, permanent);
 CLISH_GET(sym, bool_t, permanent);
+CLISH_SET(sym, tri_t, expand);
+CLISH_GET(sym, tri_t, expand);
 CLISH_SET_STR(sym, name);
 CLISH_GET_STR(sym, name);
 CLISH_SET(sym, clish_plugin_t *, plugin);
