@@ -116,7 +116,6 @@ const clish_command_t *clish_shell_find_next_completion(const clish_shell_t *
  */
 int clish_shell_pop_file(clish_shell_t * instance);
 
-clish_view_t *clish_shell_find_view(clish_shell_t * instance, const char *name);
 clish_pargv_status_e clish_shell_parse(clish_shell_t * instance,
 	const char *line, const clish_command_t ** cmd, clish_pargv_t ** pargv);
 clish_pargv_status_e clish_shell_parse_pargv(clish_pargv_t *pargv,
