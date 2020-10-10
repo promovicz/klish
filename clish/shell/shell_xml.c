@@ -994,7 +994,7 @@ static int process_namespace(clish_shell_t *shell, clish_xmlnode_t *element,
 		else
 			clish_nspace_create_prefix_cmd(nspace,
 				"prefix",
-				"Prefix for the imported commands.");
+				"Prefix for imported commands.");
 	}
 
 	if (help && lub_string_nocasecmp(help, "true") == 0)
