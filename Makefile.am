@@ -31,6 +31,7 @@ EXTRA_DIST = \
 	plugins/module.am \
 	libc/module.am \
 	doc/module.am \
+	xml/module.am \
 	contrib \
 	xml-examples \
 	debian \
@@ -48,3 +49,4 @@ include $(top_srcdir)/bin/module.am
 include $(top_srcdir)/plugins/module.am
 include $(top_srcdir)/libc/module.am
 include $(top_srcdir)/doc/module.am
+include $(top_srcdir)/xml/module.am

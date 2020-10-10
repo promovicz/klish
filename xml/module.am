@@ -1,0 +1,5 @@
+
+EXTRA_DIST += \
+	xml/main/module.am
+
+include $(top_srcdir)/xml/main/module.am

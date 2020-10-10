@@ -1,0 +1,7 @@
+
+if HAVE_XMLLINT
+check-local: check-local-xml-main
+
+check-local-xml-main:
+	$(XMLLINT) --nonet --noout --schema clish.xsd xml/main/*.xml
+endif
