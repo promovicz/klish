@@ -98,11 +98,6 @@ clish_command_t *clish_view_new_command(clish_view_t * this,
 	clish_command_t *cmd = clish_command_new(name, help);
 	assert(cmd);
 
-	/* do not insert startup/wdog command */
-	if(!help) {
-		return cmd;
-	}
-
 	/* try to insert the command */
 	if(!clish_view_insert_command(this, cmd)) {
 		/* ignore duplicate */

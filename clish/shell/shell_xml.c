@@ -633,7 +633,7 @@ static int process_startup(clish_shell_t *shell, clish_xmlnode_t *element,
 	}
 
 	/* create a command with NULL help */
-	cmd = clish_view_new_command(v, "startup", NULL);
+	cmd = clish_command_new("startup", NULL);
 	clish_command__set_internal(cmd, BOOL_TRUE);
 
 	/* reference the next view */
@@ -1174,7 +1174,7 @@ static int process_wdog(clish_shell_t *shell,
 	}
 
 	/* Create a command with NULL help */
-	cmd = clish_view_new_command(v, "watchdog", NULL);
+	cmd = clish_command_new("watchdog", NULL);
 #ifdef LEGACY
 	// Legacy watchdog has lockless ACTION
 	clish_action__set_lock(clish_command__get_action(cmd), BOOL_FALSE);
