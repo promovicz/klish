@@ -6,7 +6,7 @@
 CLISH_PLUGIN_INIT(lua)
 {
 	lub_ini_t *ini;
-	char *conf = clish_plugin__get_conf(plugin);
+	const char *conf = clish_plugin__get_conf(plugin);
 
 	if (conf) {
 		ini = lub_ini_new();
