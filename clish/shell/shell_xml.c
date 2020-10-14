@@ -604,7 +604,6 @@ error:
 static int process_startup(clish_shell_t *shell, clish_xmlnode_t *element,
 	void *parent)
 {
-	clish_view_t *v = (clish_view_t *) parent;
 	clish_command_t *cmd = NULL;
 	int res = -1;
 
@@ -689,6 +688,8 @@ error:
 	clish_xml_release(lock);
 	clish_xml_release(interrupt);
 #endif
+
+	parent = parent; /* Happy compiler */
 
 	return res;
 }
@@ -1163,7 +1164,6 @@ error:
 static int process_wdog(clish_shell_t *shell,
 	clish_xmlnode_t *element, void *parent)
 {
-	clish_view_t *v = (clish_view_t *)parent;
 	clish_command_t *cmd = NULL;
 	int res = -1;
 
@@ -1185,6 +1185,8 @@ static int process_wdog(clish_shell_t *shell,
 
 	res = process_children(shell, element, cmd);
 error:
+	parent = parent; /* Happy compiler */
+
 	return res;
 }
 
