@@ -29,12 +29,12 @@ script:
   #- make
   #- make install
   # full-featured release build
-  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes
+  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes
   - make clean
   - make
   - make install
   # full-featured debug build
-  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --enable-debug
+  - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes --enable-debug
   - make clean
   - make
   - make install
@@ -46,3 +46,5 @@ addons:
       - libexpat1-dev
       - libxml2-dev
       - libxslt1-dev
+      - lua5.1
+      - liblua5.1-dev
