@@ -609,11 +609,11 @@ static int process_startup(clish_shell_t *shell, clish_xmlnode_t *element,
 
 	char *view = clish_xmlnode_fetch_attr(element, "view");
 	char *viewid = clish_xmlnode_fetch_attr(element, "viewid");
-	char *default_shebang =
-		clish_xmlnode_fetch_attr(element, "default_shebang");
 	char *timeout = clish_xmlnode_fetch_attr(element, "timeout");
 	char *default_plugin = clish_xmlnode_fetch_attr(element,
 		"default_plugin");
+	char *default_shebang = clish_xmlnode_fetch_attr(element,
+		"default_shebang");
 #ifdef LEGACY
 	char *lock = clish_xmlnode_fetch_attr(element, "lock");
 	char *interrupt = clish_xmlnode_fetch_attr(element, "interrupt");
@@ -682,6 +682,7 @@ static int process_startup(clish_shell_t *shell, clish_xmlnode_t *element,
 error:
 	clish_xml_release(view);
 	clish_xml_release(viewid);
+	clish_xml_release(default_plugin);
 	clish_xml_release(default_shebang);
 	clish_xml_release(timeout);
 #ifdef LEGACY
