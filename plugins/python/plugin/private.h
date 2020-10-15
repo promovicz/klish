@@ -3,6 +3,8 @@
 
 #include "config.h"
 
+#include <lub/error.h>
+
 #include <clish/shell.h>
 
 #include <Python.h>
