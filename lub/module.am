@@ -31,6 +31,7 @@ EXTRA_DIST +=   \
     lub/ini/module.am \
     lub/log/module.am \
     lub/conv/module.am \
+    lub/types/module.am \
     lub/README
 
 include $(top_srcdir)/lub/argv/module.am
@@ -44,3 +45,4 @@ include $(top_srcdir)/lub/db/module.am
 include $(top_srcdir)/lub/ini/module.am
 include $(top_srcdir)/lub/log/module.am
 include $(top_srcdir)/lub/conv/module.am
+include $(top_srcdir)/lub/types/module.am

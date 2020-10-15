@@ -1,0 +1,2 @@
+liblub_la_SOURCES += \
+	lub/types/tri.c

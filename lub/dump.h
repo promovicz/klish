@@ -17,6 +17,8 @@ easy.
 #define LUB_DUMP_NULL "(null)"
 #define LUB_DUMP_STR(str) ( str ? str : LUB_DUMP_NULL )
 #define LUB_DUMP_BOOL(val) ( val ? "true" : "false" )
+#define LUB_DUMP_TRI(val) ( val == TRI_UNDEFINED ? "undefined" : \
+			    (val == TRI_TRUE ? "true" : "false"))
 
 #include <stdarg.h>
 /*=====================================
