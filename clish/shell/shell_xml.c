@@ -928,6 +928,10 @@ static int process_action(clish_shell_t *shell, clish_xmlnode_t *element,
 	if (lock && lub_string_nocasecmp(lock, "false") == 0)
 		clish_action__set_lock(action, BOOL_FALSE);
 
+	/* interactive */
+	if (interactive && lub_string_nocasecmp(interactive, "true") == 0)
+		clish_action__set_interactive(action, BOOL_TRUE);
+
 	/* interrupt */
 	if (interrupt && lub_string_nocasecmp(interrupt, "true") == 0)
 		clish_action__set_interrupt(action, BOOL_TRUE);

@@ -19,6 +19,7 @@ static void clish_action_init(clish_action_t *this)
 	this->builtin = NULL;
 	this->shebang = NULL;
 	this->lock = BOOL_TRUE;
+	this->interactive = BOOL_FALSE;
 	this->interrupt = BOOL_FALSE;
 	this->permanent = BOOL_FALSE;
 	this->expand = TRI_UNDEFINED;
