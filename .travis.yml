@@ -22,21 +22,25 @@ script:
   - ./configure --prefix=/tmp/local --with-libexpat=yes
   - make clean
   - make
+  - make check
   - make install
   # build using roxml (not available)
   #- ./configure --prefix=/tmp/local --with-roxml=yes
   #- make clean
   #- make
+  #- make check
   #- make install
   # full-featured release build
   - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes
   - make clean
   - make
+  - make check
   - make install
   # full-featured debug build
   - ./configure --prefix=/tmp/local --with-libxml2=yes --with-libxslt=yes --with-lua=yes --enable-debug
   - make clean
   - make
+  - make check
   - make install
 
 addons:
