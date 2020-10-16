@@ -37,6 +37,13 @@ AC_CHECK_SIZEOF(int)
 AC_CHECK_SIZEOF(long)
 AC_CHECK_SIZEOF(size_t)
 
+# We use xmllint if available
+AC_PATH_PROG(XMLLINT, xmllint, no)
+AM_CONDITIONAL(HAVE_XMLLINT, test "x$XMLLINT" != "xno")
+if test "$XMLLINT" = "no"; then
+    AC_MSG_WARN([xmllint not found; unable to validate XML files.])
+fi
+
 #########################################
 # See if linker supports version scripts
 #########################################

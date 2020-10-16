@@ -48,3 +48,4 @@ addons:
       - libxslt1-dev
       - lua5.1
       - liblua5.1-dev
+      - libxml2-utils
