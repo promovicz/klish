@@ -106,7 +106,7 @@ const clish_action_t *clish_context__get_action(const void *this)
 /*----------------------------------------------------------- */
 bool_t clish_context__get_expand(const clish_context_t *context)
 {
-	bool_t res;
+	bool_t res = BOOL_TRUE;
 	const clish_shell_t *shell = clish_context__get_shell(context);
 	const clish_action_t *action = clish_context__get_action(context);
 	const clish_sym_t *sym = clish_action__get_builtin(action);
@@ -114,11 +114,12 @@ bool_t clish_context__get_expand(const clish_context_t *context)
 	/* get global default */
 	res = clish_shell__get_default_expand(shell);
 	/* allow builtin to override */
-	res = lub_tri_default(clish_sym__get_expand(sym), res);
+	if (sym)
+		res = lub_tri_default(clish_sym__get_expand(sym), res);
 	/* allow action to override */
-	res = lub_tri_default(clish_action__get_expand(action), res);
+	if (action)
+		res = lub_tri_default(clish_action__get_expand(action), res);
 
-	/* return result */
 	return res;
 }
 
